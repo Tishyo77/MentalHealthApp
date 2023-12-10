@@ -77,8 +77,7 @@ export const SignUp = () => {
       <div className="background"></div>
       <div className="formContainer">
         <div className="inputContainer">
-        <h2 className="h2CustomStyle">Hey, hope you are doing great!</h2>
-
+        <h2 className="h2CustomStyle">Hey, Hope You're Doing Great!</h2>
           <label>
             <input
               type="text"

@@ -55,8 +55,6 @@ export const LogIn = () => {
       return;
     }
 
-    // Perform any additional validation or authentication logic here
-    // For simplicity, we'll just log the form data for now
     console.log('Submitted:', { email, password });
   };
 
