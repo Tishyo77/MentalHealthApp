@@ -1,24 +1,56 @@
-.menu {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-left: 20px;
-  }
-  
-  .sign-up-button,
-  .log-in-button {
-    padding: 8px 16px;
-    margin: 0 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: #3498db;
-    color: #000000;
-  }
-  
-  .log-in-button {
-    background-color: #2ecc71;
-  }
-  
+/* LandingPage.css */
+.landing-page {
+  background-image: url('./src/Images/LandingBG.png');
+  background-size: cover;
+  background-position: center;
+  color: rgb(0, 0, 0); 
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  text-align: center; 
+}
+
+.landing-page h1 {
+  font-family: 'Pacifico', cursive;
+}
+
+.landing-page .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center items vertically within the navbar */
+  background-color: rgba(0, 0, 0, 0); 
+  width: 100%; 
+  padding: 20px; /* Add padding to the navbar for spacing */
+  padding-left: 0px;
+  box-sizing: border-box; /* Ensure padding doesn't affect the total width */
+}
+
+.landing-page .logo {
+  display: flex;
+  align-items: center; /* Center the content vertically */
+}
+
+.landing-page .logo img {
+  max-width: 100px; 
+  margin-top: 50px;
+}
+
+.landing-page .login-btn {
+  margin-right: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.landing-page .content {
+  padding-left: 250px;
+  padding-right: 250px;
+}
+
+.landing-page .signup-btn {
+  /* Add styles for the signup button */
+}
