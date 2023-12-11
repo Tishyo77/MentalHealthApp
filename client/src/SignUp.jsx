@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./SignUp.css";
-
+import logo from "./Images/SSLogo.png"
 export const SignUp = () => {
   const navigate = useNavigate();
   const [fullName, setFullName] = useState('');
@@ -74,7 +74,9 @@ export const SignUp = () => {
 
   return (
     <div className="signup-container">
-      <div className="background"></div>
+      <div className="background">
+      <img src={logo} alt="Logo" className="logo" />
+      </div>
       <div className="formContainer">
         <div className="inputContainer">
         <h2 className="h2CustomStyle">Hey, Hope You're Doing Great!</h2>

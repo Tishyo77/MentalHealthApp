@@ -1,7 +1,7 @@
 // Import necessary modules and styles
 import React, { useState } from 'react';
 import './LogIn.css';
-
+import logo from "./Images/SSLogo.png";
 // Create the Login component
 export const LogIn = () => {
   // State variables for email, password, and errors
@@ -66,7 +66,9 @@ export const LogIn = () => {
   // JSX structure for the login page
   return (
     <div className="login-container">
-      <div className="background"></div>
+      <div className="background">
+      <img src={logo} alt="Logo" className="logo" />
+      </div>
       <div className="formContainer">
         <div className="inputContainer">
           <h2 className="h2CustomStyle">Welcome back!</h2>
