@@ -1,56 +1,103 @@
 /* LandingPage.css */
 .landing-page {
+  position: relative;
   background-image: url('./src/Images/LandingBG.png');
   background-size: cover;
   background-position: center;
-  color: rgb(0, 0, 0); 
+  color: rgb(255, 255, 255);
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
-  text-align: center; 
+  text-align: center;
+}
+
+.landing-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.277);
+  z-index: 1; /* Keep this as 1 */
 }
 
 .landing-page h1 {
   font-family: 'Pacifico', cursive;
+  font-size: 45px;
+  color: white;
+  font-weight: 100;
+}
+
+.landing-page p {
+  font-family: 'Quantico', sans-serif;
+  color: #cdefff;
+  margin-bottom: 50px;
 }
 
 .landing-page .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Center items vertically within the navbar */
-  background-color: rgba(0, 0, 0, 0); 
-  width: 100%; 
-  padding: 20px; /* Add padding to the navbar for spacing */
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
+  padding: 20px;
   padding-left: 0px;
-  box-sizing: border-box; /* Ensure padding doesn't affect the total width */
+  box-sizing: border-box;
+  position: relative; 
+  z-index: 2; 
 }
 
 .landing-page .logo {
   display: flex;
-  align-items: center; /* Center the content vertically */
+  align-items: center;
 }
 
 .landing-page .logo img {
-  max-width: 100px; 
-  margin-top: 50px;
+  max-width: 150px;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 
-.landing-page .login-btn {
+.landing-page .login-btn,
+.landing-page .signup-btn {
   margin-right: 20px;
   padding-left: 50px;
+  margin-top: 10px;
   padding-right: 50px;
   padding-top: 10px;
   padding-bottom: 10px;
-  border: 1px solid black;
+  border: none;
   border-radius: 20px;
+  font-family: 'Offside', sans-serif;
+  text-decoration: none; 
 }
 
-.landing-page .content {
-  padding-left: 250px;
-  padding-right: 250px;
+.landing-page .login-btn {
+  background: linear-gradient(to right, #3257C6, #8532C6);
+  color: white;
 }
 
 .landing-page .signup-btn {
-  /* Add styles for the signup button */
+  color: white;
+  background-color: #0000001e;
+  border: 1px solid #3F5489;
+  border-radius: 10px;
+}
+
+.landing-page .content {
+  margin-top: 25px;
+  margin-left: 250px;
+  margin-right: 250px;
+  z-index: 2;
+}
+
+.landing-page .login-btn:hover {
+  background: #90e0ffb0;
+  color: white;
+}
+
+.landing-page .signup-btn:hover {
+  background-color: #ffffff6c;
+  color: rgb(255, 255, 255);
 }
