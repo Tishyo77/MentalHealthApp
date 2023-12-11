@@ -58,11 +58,21 @@
 }
 
 .signup-container .btn-primary {
-  width: 60%;
-  padding: 10px;
+  width: 68%;
+  padding: 5px; /* Adjust padding as needed */
   margin-left: 15px;
   margin-bottom: 10px;
-  font-family: 'Telex', sans-serif;
+  font-family: "offside";
+  background: linear-gradient(to right, #6a8fff, #9696db); /* Apply a gradient background */
+  color: #fff; /* Set text color to white or another suitable color */
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease; /* Add transition for a smooth effect */
+}
+.signup-container .btn-primary:hover {
+  background: rgb(184, 189, 252);/* Change gradient on hover */
+  box-shadow: 0 0 1px 1px hsl(229, 100%, 61%);
 }
 
 .signup-container button {
@@ -124,7 +134,8 @@
 .signup-container .h2CustomStyle {
   font-family: 'Sacramento', cursive;
   font-size: 50px;
-  margin-top: 40px;
+  margin-top: 15%;
+  margin-bottom: 50px;
   color: #333;
 }
 

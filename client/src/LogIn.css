@@ -32,7 +32,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #c974e5a1, #f91f60a2);
+    background: linear-gradient(to bottom, #c974e5a1, #ffbb00a2);
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
     animation: moveRight 0.8s ease-out;
@@ -72,11 +72,30 @@
     width: 300px;
   }
   
-  .login-container .btn-primary {
-    width: 60%;
+  /* .login-container .btn-primary {
+    width: 95%;
     padding: 2px;
     margin-left: 15px;
     margin-bottom: 10px;
+    
+  } */
+  .login-container .btn-primary {
+    width: 95%;
+    padding: 5px; /* Adjust padding as needed */
+    margin-left: 15px;
+    margin-bottom: 10px;
+    font-family: "offside";
+    background: linear-gradient(to right, #6a8fff, #8484ca); /* Apply a gradient background */
+    color: #fff; /* Set text color to white or another suitable color */
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease; /* Add transition for a smooth effect */
+  }
+  
+  .login-container .btn-primary:hover {
+    background: rgb(184, 189, 252);/* Change gradient on hover */
+    box-shadow: 0 0 1px 1px hsl(229, 100%, 61%);
   }
   
   .login-container button {
@@ -86,14 +105,17 @@
   
   .login-container .inputContainer label input::placeholder {
     font-family: 'Telex', sans-serif;
-    font-size: small;
+    font-size: 15px;
+    color: rgb(63, 63, 63);
   }
   
   .login-container .h2CustomStyle {
     /* font-family: 'Sacramento', cursive; */
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, cursive;
+    font-family: 'Sacramento', cursive;
     font-size: 50px;
-    margin-top: 40px;
+    margin-top: 15%;
+    margin-bottom: 50px;
+
     color: #333;
   }
   

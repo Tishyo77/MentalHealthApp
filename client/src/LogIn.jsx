@@ -111,7 +111,7 @@ export const LogIn = () => {
             {passwordError && <li>{passwordError}</li>}
           </ul>
           <br></br>
-          <button onClick={closeErrorPopup}>Close</button>
+          <button className ="btn btn-primary" onClick={closeErrorPopup}>Close</button>
         </div>
       )}
     </div>
