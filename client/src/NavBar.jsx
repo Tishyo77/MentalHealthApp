@@ -15,7 +15,8 @@ const NavBar = () => {
         <button className="profile-button">Profile</button>
         <button className="logout-button">Logout</button>
       </div>
-    </div>
+    </div>  
+
   );
 };
 

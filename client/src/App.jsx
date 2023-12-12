@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.css';
 import LandingPage from './LandingPage';
 import SignUp from './SignUp'; 
 import LogIn from './LogIn'; 
