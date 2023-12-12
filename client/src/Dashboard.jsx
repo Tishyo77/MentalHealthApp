@@ -1,13 +1,10 @@
 import React from 'react';
-// import NavBar from './NavBar';
-import  NavBar2  from './NavBar2';
-import NavButton from './NavButton';
+import  NavBar  from './NavBar';
 
 const Dashboard = () => {
   return (
     <div>
-      <NavBar2 />
-      <NavButton />
+      <NavBar />
     </div>
   );
 };

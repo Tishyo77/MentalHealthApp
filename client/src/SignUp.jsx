@@ -65,7 +65,6 @@ export const SignUp = () => {
 
     console.log('Submitted:', { fullName, email, password });
 
-    navigate('/dashboard');
   };
 
   const closeErrorPopup = () => {

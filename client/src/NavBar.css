@@ -1,61 +1,69 @@
-/* NavBar.css */
-
-/* Reset default margin and padding for body and HTML elements */
-body, html {
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Style for the entire navigation bar */
-  .navbar {
+.sidebar {
     position: fixed;
     top: 0;
     left: 0;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    background-color: #333; /* Set your desired background color */
-    color: white; /* Set your desired text color */
-    width: 100%; /* Make the navbar 100% of the viewport width */
+    background: rgb(0, 0, 0);
+    color: white;
+    width: 8%;
+    height: 100%;
     padding-top: 15px;
-    padding-bottom: 15px;
-  }
-  
-  /* Style for the left section containing the logo */
-  .navbar-left {
-    display: flex;
-    align-items: center;
-  }
-  
-  /* Style for the logo */
-  .logo {
-    width: 40px; /* Set your desired width */
-    height: 40px; /* Set your desired height */
-    margin-left: 20px; /* Adjust margin as needed */
-  }
-  
-  /* Style for the right section containing buttons */
-  .navbar-right {
-    display: flex;
-  }
-  
-  .logout-button
-  {
-    margin-right: 20px;
+}
+  .profile-section {
+    text-align: center;
+    margin-bottom: 55%;
+    margin-top: 25px;;
   }
 
-  /* Style for profile and logout buttons */
-  .profile-button,
-  .logout-button {
-    margin-left: 10px; /* Adjust margin as needed */
-    padding: 8px 16px; /* Adjust padding as needed */
-    font-size: 16px; /* Set your desired font size */
-    cursor: pointer;
-    background-color: #555; /* Set your desired button background color */
-    color: white; /* Set your desired button text color */
-    border: none;
-    border-radius: 4px; /* Set your desired border radius */
+  
+  .icon-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    margin-top: 50px;
   }
   
-  /* Add additional styles as needed */
+  .sidebar-icon {
+    font-size: 24px;
+    margin-bottom: 45px; 
+  }
   
+  .sidebar-icon:hover {
+    color: yellow; 
+  }
+  
+  @media screen and (max-width: 600px) {
+    
+    .sidebar {
+      width: 100%;
+      padding: 15px;
+    }
+  
+    .icon-section {
+      margin-bottom: 10px;
+    }
+  
+    .sidebar-icon {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .logout-icon {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: red; 
+  }
+  
+  .sidebar-icon:hover {
+    color: rgb(173, 217, 255); 
+    cursor: pointer; 
+  }
+
+  .logout-icon:hover {
+    color: rgb(255, 255, 255); 
+    cursor: pointer;
+  }
