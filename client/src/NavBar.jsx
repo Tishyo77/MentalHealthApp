@@ -1,12 +1,21 @@
-import React from 'react';
-import './NavBar.css'; // Import the new CSS file
+import React, { useEffect, useState } from 'react';
+import './NavBar.css'; 
+import apiClient from './Spotify';
 
 const NavBar = () => {
+  const [image, setImage] = useState(
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdLAY3C19kL0nV2bI_plU3_YFCtra0dpsYkg&usqp=CAU"
+  );
+  useEffect(() => {
+    apiClient.get("me").then(response => {setImage(response.data.images[0].url);})
+  }, [])
+
   return (
     <div className="container-fluid sidebar">
       <div className="profile-section">
         <div className="profile-circle">
-          <i className="fas fa-user-circle fa-2x"></i> {/* Human icon */}
+          {/* <i className="fas fa-user-circle fa-2x"></i> */}
+          <img src={image} className="profile-img" alt="profile" />
         </div>
       </div>
       <div className="icon-section">

@@ -7,6 +7,7 @@ import SignUp from './SignUp';
 import LogIn from './LogIn'; 
 import Dashboard from './Dashboard';
 import MeditationPage from './MeditationPage';
+import { setClientToken } from './Spotify';
 
 
 const App = () => {
@@ -20,10 +21,12 @@ const App = () => {
       const _token = hash.split("&")[0].split("=")[1];
       window.localStorage.setItem("token", _token);
       setToken(_token);
+      setClientToken(_token);
     }
     else
     {
       setToken(token);
+      setClientToken(token);
     }
   }, []);
   return (
