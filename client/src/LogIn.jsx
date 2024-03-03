@@ -2,8 +2,11 @@
 import React, { useState } from 'react';
 import './LogIn.css';
 import logo from "./Images/SSLogo.png";
+import { useNavigate } from 'react-router-dom';
+
 // Create the Login component
 export const LogIn = () => {
+  const navigate = useNavigate();
   // State variables for email, password, and errors
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,19 +46,19 @@ export const LogIn = () => {
 
   // Function to handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
 
     // Validate email and password
-    validateEmail();
-    validatePassword();
+    //validateEmail();
+    //validatePassword();
 
     // Show error popup if there are validation errors
-    if (emailError || passwordError) {
-      setShowErrorPopup(true);
-      return;
-    }
-
-    console.log('Submitted:', { email, password });
+    //if (emailError || passwordError) {
+    //  setShowErrorPopup(true);
+    //  return;
+    //}
+    navigate('/spotify');
+    //console.log('Submitted:', { email, password });
   };
 
   // Function to close the error popup
