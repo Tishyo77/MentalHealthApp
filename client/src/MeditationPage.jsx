@@ -27,6 +27,10 @@ const MeditationPage = () => {
     }
   }, [location.state]);
 
+  useEffect(() => {
+    setCurrentTrack(tracks[currentIndex]?.track);
+  }, [currentIndex, tracks]);
+
   return (
     <div className="meditation-container">
       <NavBar />
@@ -34,8 +38,8 @@ const MeditationPage = () => {
         <div className="left-player-body">
         </div>
         <div className="right-player-body">
-          <SongCard />
-          <Queue />
+          <SongCard album={currentTrack?.album}/>
+          <Queue tracks={tracks} setCurrentIndex={setCurrentIndex} />
         </div>
       </div>
     </div>
