@@ -2,7 +2,7 @@ body {
     background-color: black;
 }
 
-.meditation-page {
+.meditation-container .meditation-page {
     width: 94%;
     max-width: 94%;
     position: absolute;
@@ -11,4 +11,25 @@ body {
     bottom: 0;
     background-color: #cfbb47; 
     border-radius: 30px 0px 0px 30px;
+}
+
+.meditation-container .left-player-body
+{
+    width: 68%;
+    margin-right: 2%;
+    height: 100%;
+}
+
+.meditation-container .right-player-body
+{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.meditation-container .flex
+{
+    display: flex;
 }

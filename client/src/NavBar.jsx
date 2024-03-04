@@ -7,7 +7,10 @@ const NavBar = () => {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdLAY3C19kL0nV2bI_plU3_YFCtra0dpsYkg&usqp=CAU"
   );
   useEffect(() => {
-    apiClient.get("me").then(response => {setImage(response.data.images[0].url);})
+    apiClient.get("me").then(response => {
+      console.log(response.data.images[0].url);
+      setImage(response.data.images[0].url);
+    })
   }, [])
 
   return (

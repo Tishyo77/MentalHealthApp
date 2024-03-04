@@ -1,13 +1,43 @@
 import React from 'react';
 import './MeditationPage.css'; 
 import  NavBar  from './NavBar';
+import SongCard from "./SongCard";
+import Queue from "./Queue";
+import apiClient from './Spotify';
+import SpecificPlaylist from './SpecificPlaylist';
 import Logo from './Images/SSLogo.png'; 
 import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
 const MeditationPage = () => {
+  const location = useLocation();
+  const [tracks, setTracks] = useState([]);
+  const [currentTrack, setCurrentTrack] = useState({});
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (location.state) {
+      apiClient
+        .get("playlists/" + location.state?.id + "/tracks")
+        .then((res) => {
+          setTracks(res.data.items);
+          setCurrentTrack(res.data?.items[0]?.track);
+        });
+    }
+  }, [location.state]);
+
   return (
-    <div className="meditation-page">
-        <NavBar />
+    <div className="meditation-container">
+      <NavBar />
+      <div className="meditation-page flex">
+        <div className="left-player-body">
+        </div>
+        <div className="right-player-body">
+          <SongCard />
+          <Queue />
+        </div>
+      </div>
     </div>
   );
 };
