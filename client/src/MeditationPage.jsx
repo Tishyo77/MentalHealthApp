@@ -5,6 +5,7 @@ import SongCard from "./SongCard";
 import Queue from "./Queue";
 import apiClient from './Spotify';
 import SpecificPlaylist from './SpecificPlaylist';
+import AudioPLayer from './AudioPlayer';
 import Logo from './Images/SSLogo.png'; 
 import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -36,6 +37,15 @@ const MeditationPage = () => {
       <NavBar />
       <div className="meditation-page flex">
         <div className="left-player-body">
+          <AudioPLayer
+            currentTrack={currentTrack}
+            total={tracks}
+            currentIndex={currentIndex}
+            setCurrentIndex={setCurrentIndex}
+          />
+          <div className="playlists">
+            <SpecificPlaylist />
+          </div>
         </div>
         <div className="right-player-body">
           <SongCard album={currentTrack?.album}/>

@@ -7,7 +7,6 @@ import SignUp from './SignUp';
 import LogIn from './LogIn'; 
 import Dashboard from './Dashboard';
 import MeditationPage from './MeditationPage';
-import Playlists from './Playlists';
 import { setClientToken } from './Spotify';
 
 
@@ -33,7 +32,6 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/playlists" element={<Playlists />} />
         <Route path="/spotify" element={<SpotifyLogin />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />

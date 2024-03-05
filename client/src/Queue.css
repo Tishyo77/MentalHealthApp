@@ -4,14 +4,14 @@
     border-radius: 30px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    background-color: #3e61d2;
+    background-color: #88ffae;
     opacity: 1;
     background-image: repeating-radial-gradient(
         circle at 0 0,
         transparent 0,
-        #3e61d2 40px
+        #8bff9f 40px
       ),
-      repeating-linear-gradient(#4767d055, #4767d0);
+      repeating-linear-gradient(#4767d055, #adc0ff);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -27,7 +27,7 @@
   .upNext {
     font-size: 20px;
     font-weight: 700;
-    color: #fff;
+    color: #000000;
     text-align: left;
     margin: 10px 0px;
   }
@@ -48,7 +48,7 @@
     padding: 5px 0px;
     font-size: 14px;
     font-weight: 500;
-    color: #fff;
+    color: #000000;
     cursor: pointer;
     transition: all 0.2s ease;
   }
