@@ -1,6 +1,7 @@
 // Import necessary modules and styles
 import React, { useState } from 'react';
 import './LogIn.css';
+import axios from 'axios';
 import logo from "./Images/SSLogo.png";
 import { useNavigate } from 'react-router-dom';
 
@@ -46,19 +47,36 @@ export const LogIn = () => {
 
   // Function to handle form submission
   const handleSubmit = (e) => {
-    //e.preventDefault();
+    e.preventDefault();
 
-    // Validate email and password
-    //validateEmail();
-    //validatePassword();
+    validateEmail();
+    validatePassword();
 
-    // Show error popup if there are validation errors
-    //if (emailError || passwordError) {
-    //  setShowErrorPopup(true);
-    //  return;
-    //}
-    navigate('/spotify');
-    //console.log('Submitted:', { email, password });
+    if (emailError || passwordError) {
+      setShowErrorPopup(true);
+       return;
+    }
+
+    axios.post("http://localhost:4000/userRoute/login-user", {email, password})
+        .then(result => 
+        {
+            const { data, token } = result.data;
+            if(data === "Success")
+            {
+              console.log("Logged In");
+              localStorage.setItem('token', token);
+              navigate('/spotify');
+            }
+            else if(data === "Incorrect")
+            {
+              alert("Incorrect Password!");
+            }
+            else
+            {
+              alert("User does not exist!");
+            }
+        })
+        .catch(err => console.log(err))
   };
 
   // Function to close the error popup

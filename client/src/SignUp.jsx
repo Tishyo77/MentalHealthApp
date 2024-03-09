@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./SignUp.css";
-import logo from "./Images/SSLogo.png"
+import logo from "./Images/SSLogo.png";
+import axios from 'axios';
+
 export const SignUp = () => {
   const navigate = useNavigate();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [fullNameError, setFullNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [fullNameError, setFullNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
 
   const validateFullName = () => {
@@ -39,6 +43,14 @@ export const SignUp = () => {
     }
   };
 
+  const validateConfirmPassword = () => {
+    if (confirmPassword !== password) {
+      setConfirmPasswordError('Passwords do not match');
+    } else {
+      setConfirmPasswordError('');
+    }
+  };
+
   const handleFullNameChange = (e) => {
     setFullName(e.target.value);
   };
@@ -51,20 +63,63 @@ export const SignUp = () => {
     setPassword(e.target.value);
   };
 
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     validateFullName();
     validateEmail();
     validatePassword();
+    validateConfirmPassword();
 
-    if (fullNameError || emailError || passwordError) {
+    if (fullNameError || emailError || passwordError || confirmPasswordError) {
       setShowErrorPopup(true);
       return;
     }
 
-    console.log('Submitted:', { fullName, email, password });
+    let userExists = 0;
 
+    axios.get(`http://localhost:4000/userRoute/retrieve?email=${email}`)
+        .then((userExistsResponse) => 
+        {
+            if (userExistsResponse.status === 200) 
+            {
+                alert("Email already in use!");
+                userExists = 1;
+            }
+        })
+        .catch((error) => 
+        {
+            console.error("Error checking for existing user:", error);
+        })
+        .then(() => 
+        {
+            if(!userExists)
+            {
+            const data = { email: email, password: password };
+
+            axios.post("http://localhost:4000/userRoute/create-user", data)
+                .then((createUserResponse) => 
+                {
+                    if (createUserResponse.status === 200) 
+                    {
+                        alert("Account Created!");
+                    }  
+                    else 
+                    {
+                        alert("Failed to create account");
+                    }
+                })
+                .catch((error) => 
+                {
+                    console.error("Error creating account:", error);
+                    alert("Error creating account");
+                });
+            }
+        });
   };
 
   const closeErrorPopup = () => {
@@ -93,7 +148,7 @@ export const SignUp = () => {
             <input
               type="email"
               name="email"
-              placeholder="Email address"
+              placeholder="Email Address"
               value={email}
               onChange={handleEmailChange}
             />
@@ -103,9 +158,19 @@ export const SignUp = () => {
             <input
               type="password"
               name="password"
-              placeholder="Enter your password"
+              placeholder="Password"
               value={password}
               onChange={handlePasswordChange}
+            />
+          </label>
+
+          <label>
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
             />
           </label>
 
@@ -127,6 +192,7 @@ export const SignUp = () => {
             {fullNameError && <li>{fullNameError}</li>}
             {emailError && <li>{emailError}</li>}
             {passwordError && <li>{passwordError}</li>}
+            {confirmPasswordError && <li>{confirmPasswordError}</li>}
           </ul>
           <br></br>
           <button onClick={closeErrorPopup}>Close</button>

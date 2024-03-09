@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.css';
-import SpotifyLogin from './SpotifyLogin';
+import SpotifyLogin from './Meditate/SpotifyLogin';
 import LandingPage from './LandingPage';
 import SignUp from './SignUp'; 
 import LogIn from './LogIn'; 
 import Dashboard from './Dashboard';
-import MeditationPage from './MeditationPage';
-import { setClientToken } from './Spotify';
+import MeditationPage from './Meditate/MeditationPage';
+import { setClientToken } from './Meditate/Spotify';
 
 
 const App = () => {

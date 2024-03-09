@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './NavBar.css'; 
-import apiClient from './Spotify';
+import apiClient from './Meditate/Spotify';
 
 const NavBar = () => {
   const [image, setImage] = useState(
