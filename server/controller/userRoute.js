@@ -6,41 +6,35 @@ const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];
-  
+
     if (!token) {
-      return res.status(401).json({ error: 'Unauthorized - No token provided' });
+        return res.status(401).json({ error: 'Unauthorized - No token provided' });
     }
-  
+
     jwt.verify(token, 'your-secret-key', (err, decoded) => {
-      if (err) {
-        return res.status(403).json({ error: 'Unauthorized - Invalid token' });
-      }
-  
-      req.user = decoded;
-      next();
+        if (err) {
+            return res.status(403).json({ error: 'Unauthorized - Invalid token' });
+        }
+
+        req.user = decoded; // Store decoded user information in req.user
+        next();
     });
 };
 
 
-userRoute.get("/retrieve", verifyToken, async (req, res) => 
-{
-    try 
-    {
+userRoute.get("/retrieve", verifyToken, async (req, res) => {
+    try {
+        console.log("Entered");
         const { email } = req.query;
         const user = await userSchema.findOne({ email: email });
-  
-        if (user) 
-        {
+
+        if (user) {
             console.log("User found");
-            res.json({ email: user.email });
-        } 
-        else 
-        {
+            res.json({ email: user.email, name: user.name });
+        } else {
             res.status(404).json({ error: 'User not found' });
         }
-    } 
-    catch (error) 
-    {
+    } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
@@ -80,7 +74,7 @@ userRoute.post("/login-user", async (req, res) =>
 });
 
 userRoute.post("/create-user", async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
     const saltRounds = 10;
     
     try 
@@ -89,7 +83,7 @@ userRoute.post("/create-user", async (req, res) => {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
-        const newUser = new userSchema({ email, password: hashedPassword });
+        const newUser = new userSchema({ email, password: hashedPassword, name });
         const savedUser = await newUser.save();
         res.json(savedUser);
     } 

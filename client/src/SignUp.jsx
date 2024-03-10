@@ -99,7 +99,7 @@ export const SignUp = () => {
         {
             if(!userExists)
             {
-            const data = { email: email, password: password };
+            const data = { email: email, password: password, name: fullName };
 
             axios.post("http://localhost:4000/userRoute/create-user", data)
                 .then((createUserResponse) => 

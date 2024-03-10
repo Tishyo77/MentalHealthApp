@@ -63,6 +63,7 @@ export const LogIn = () => {
             const { data, token } = result.data;
             if(data === "Success")
             {
+              localStorage.setItem('email', email);
               console.log("Logged In");
               localStorage.setItem('token', token);
               navigate('/spotify');
