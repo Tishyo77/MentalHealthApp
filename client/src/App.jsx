@@ -8,8 +8,6 @@ import LogIn from './LogIn';
 import Dashboard from './Dashboard';
 import MeditationPage from './Meditate/MeditationPage';
 import { setClientToken } from './Meditate/Spotify';
-import FeelingPopup from './FeelingPopup';
-
 
 const App = () => {
 
@@ -72,7 +70,6 @@ const App = () => {
         <Route path="/login" element={<LogIn />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/meditate" element={<MeditationPage />} />
-        <Route path="/feeling" element={<FeelingPopup />} />
       </Routes>
     </Router>
   );

@@ -93,13 +93,13 @@ export const SignUp = () => {
         })
         .catch((error) => 
         {
-            console.error("Error checking for existing user:", error);
+            
         })
         .then(() => 
         {
-            if(!userExists)
-            {
-            const data = { email: email, password: password, name: fullName };
+          if(!userExists)
+          {
+            const data = { email: email, password: password, name: fullName, date: "NULL" };
 
             axios.post("http://localhost:4000/userRoute/create-user", data)
                 .then((createUserResponse) => 
@@ -112,6 +112,12 @@ export const SignUp = () => {
                     {
                         alert("Failed to create account");
                     }
+
+                    axios.post("http://localhost:4000/detailsRoute/add-user", { email: email, feelings: [] })
+                      .then(result =>
+                      {
+                      })
+                      .catch(err => console.log(err))
                 })
                 .catch((error) => 
                 {

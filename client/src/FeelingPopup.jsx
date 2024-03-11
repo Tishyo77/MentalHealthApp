@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import "./FeelingPopup.css"; // Import your FeelingPopup styles
+import "./FeelingPopup.css"; 
+import axios from 'axios';
 
 const FeelingPopup = ({ onSelect }) => {
   const [selectedFeeling, setSelectedFeeling] = useState('');
@@ -8,7 +9,16 @@ const FeelingPopup = ({ onSelect }) => {
     setSelectedFeeling(feeling);
   };
 
+  const userEmail = localStorage.getItem('email');
+
   const handleConfirm = () => {
+    axios.post("http://localhost:4000/detailsRoute/add-feeling", {email: userEmail, feeling: selectedFeeling})
+      .then(result =>
+      {
+        console.log("Feeling added");
+      })
+      .catch(err => console.log(err))
+
     onSelect(selectedFeeling);
   };
 

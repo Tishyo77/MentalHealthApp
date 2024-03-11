@@ -16,21 +16,19 @@ const verifyToken = (req, res, next) => {
             return res.status(403).json({ error: 'Unauthorized - Invalid token' });
         }
 
-        req.user = decoded; // Store decoded user information in req.user
+        req.user = decoded; 
         next();
     });
 };
 
 
-userRoute.get("/retrieve", verifyToken, async (req, res) => {
+userRoute.get("/retrieve", async (req, res) => {
     try {
-        console.log("Entered");
         const { email } = req.query;
         const user = await userSchema.findOne({ email: email });
 
         if (user) {
-            console.log("User found");
-            res.json({ email: user.email, name: user.name });
+            res.json({ email: user.email, name: user.name, date: user.date });
         } else {
             res.status(404).json({ error: 'User not found' });
         }
@@ -54,7 +52,7 @@ userRoute.post("/login-user", async (req, res) =>
             if(passwordMatch)
             {
                 // User is authenticated, generate JWT token
-                const token = jwt.sign({ userId: user._id, email: user.email }, 'your-secret-key', { expiresIn: '24h' });
+                const token = jwt.sign({ userId: user._id, email: user.email }, 'your-secret-key', { expiresIn: '48h' });
                 res.json({ data: "Success", token });
             }
             else
@@ -74,7 +72,7 @@ userRoute.post("/login-user", async (req, res) =>
 });
 
 userRoute.post("/create-user", async (req, res) => {
-    const { email, password, name } = req.body;
+    const { email, password, name, date } = req.body;
     const saltRounds = 10;
     
     try 
@@ -83,7 +81,7 @@ userRoute.post("/create-user", async (req, res) => {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
-        const newUser = new userSchema({ email, password: hashedPassword, name });
+        const newUser = new userSchema({ email, password: hashedPassword, name, date });
         const savedUser = await newUser.save();
         res.json(savedUser);
     } 
@@ -92,5 +90,26 @@ userRoute.post("/create-user", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+userRoute.post("/update-date", async (req, res) => {
+    try {
+        const { email, date } = req.body;
+
+        const updatedUser = await userSchema.findOneAndUpdate(
+            { email: email },
+            { $set: { date: date } },
+            { new: true } 
+        );
+
+        if (updatedUser) {
+            res.json(updatedUser);
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 
 module.exports = userRoute;

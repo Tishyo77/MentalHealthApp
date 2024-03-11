@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 userRoute = require("./controller/userRoute");
+detailsRoute = require("./controller/detailsRoute");
 const bodyparser = require("body-parser");
 const cors = require("cors");
 
@@ -16,6 +17,7 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(cors());
 app.use("/userRoute", userRoute);
+app.use("/detailsRoute", detailsRoute);
 
 app.listen(4000, () =>{
     console.log("Server started at 4000");

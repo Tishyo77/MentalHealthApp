@@ -8,7 +8,6 @@ const NavBar = () => {
   );
   useEffect(() => {
     apiClient.get("me").then(response => {
-      console.log(response.data.images[0].url);
       setImage(response.data.images[0].url);
     })
   }, [])

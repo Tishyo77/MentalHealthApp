@@ -1,5 +1,6 @@
 .dashboard-container .dashboard-page {
     width: 94%;
+    height: 100%;
     max-width: 94%;
     position: absolute;
     top: 0;
@@ -14,23 +15,34 @@
 {
     margin-top: 1%;
     margin-left: 2%;
-    width: 68%;
+    width: 64%;
     height: 98%;
-    margin-right: 2%;
-    
+    margin-right: 2%;   
 }
 
 .dashboard-container .upper-half
 {
-    height: 50%;
+    position: relative;
+    height: 60%;
+}
+
+.dashboard-container .greeting-container
+{
+    height: 25%;
+    margin-bottom: 2%;
+}
+
+.dashboard-container .qotd 
+{
+    height: 100%;
 }
 
 .dashboard-container .right-dash-body
 {
-    margin-top: 2%;
+    margin-top: 1%;
     margin-right: 2%;
     width: 30%;
-    
+    height: 98;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -41,13 +53,8 @@
     display: flex;
 }
 
-.dashboard-container .qotd 
-{
-    margin-top: 5%;
-    height: 80%;
-}
-
 .dashboard-container .reading-now 
 {
     height: 100%;
 }
+

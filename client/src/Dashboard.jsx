@@ -11,14 +11,10 @@ const Dashboard = () => {
     const [userName, setUserName] = useState("");
     
     useEffect(() => {
-      const lastFetchedDate = localStorage.getItem('lastFetchedDate');
       const currentDate = new Date().toLocaleDateString();
-  
-      if (lastFetchedDate !== currentDate) 
-        setShowFeelingPopup(true);
-
       const userEmail = localStorage.getItem('email');
       const token = localStorage.getItem('token');
+
       if (userEmail) 
       {
         axios.get(`http://localhost:4000/userRoute/retrieve?email=${userEmail}`, {
@@ -26,12 +22,32 @@ const Dashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then(response => {
-          setUserName(response.data.name); 
-        })
-        .catch(error => {
-          console.error("Error retrieving user information:", error);
-        });
+          .then(response => {
+            if (response.data.date !== currentDate) 
+            {
+              setShowFeelingPopup(true);
+              axios.post(
+                `http://localhost:4000/userRoute/update-date`,
+                { email: userEmail, date: currentDate },
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              )
+                .then(res => {
+                })
+                .catch(err => {
+                  console.error("Update date error:", err);
+                });
+            }
+            const names = response.data.name.split(' ');
+            const firstName = names.length > 0 ? names[0] : '';
+            setUserName(firstName); 
+          })
+          .catch(error => {
+            console.error("Error retrieving user information:", error);
+          });
       }
     }, []);
 
@@ -55,6 +71,7 @@ const Dashboard = () => {
                             <DayQuote />
                         </div>
                     </div>
+                  
                 </div>
                 <div className="right-dash-body">
                     <div className="upper-half">

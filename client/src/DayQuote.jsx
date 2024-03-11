@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './DayQuote.css';
+import axios from 'axios';
 
 const DayQuote = () => {
   const [quote, setQuote] = useState({ content: '', author: '' });
+  let flag = 0;
 
   useEffect(() => {
     const fetchRandomQuote = async () => {
       let newQuote = { content: '', author: '' };
-
       while (newQuote.content.length > 101 || newQuote.content.length === 0) {
         try {
           const response = await fetch('https://api.quotable.io/random');
@@ -23,20 +24,35 @@ const DayQuote = () => {
 
       // Store the new quote and the current date in local storage
       localStorage.setItem('dailyQuote', JSON.stringify(newQuote));
-      localStorage.setItem('lastFetchedDate', new Date().toLocaleDateString());
 
       setQuote(newQuote);
     };
 
     // Check if a quote has been stored for today
-    const storedDate = localStorage.getItem('lastFetchedDate');
-    if (storedDate === new Date().toLocaleDateString()) {
-      const storedQuote = JSON.parse(localStorage.getItem('dailyQuote') || '{}');
-      setQuote(storedQuote);
-    } else {
-      // If not, fetch a new quote
-      fetchRandomQuote();
-    }
+    const userEmail = localStorage.getItem('email');
+    const token = localStorage.getItem('token');
+
+    axios.get(`http://localhost:4000/userRoute/retrieve?email=${userEmail}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(response => {
+      if (response.data.date === new Date().toLocaleDateString()) {
+        const storedQuote = JSON.parse(localStorage.getItem('dailyQuote') || '{}');
+        setQuote(storedQuote);
+      } else {
+        // If not, fetch a new quote
+        if(flag == 0)
+        {
+          flag = 1;
+          fetchRandomQuote();
+        }
+      } 
+    })
+    .catch(error => {
+      console.error("Error retrieving user information:", error);
+    });
   }, []);
 
   return (
