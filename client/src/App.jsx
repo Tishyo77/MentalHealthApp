@@ -5,8 +5,10 @@ import SpotifyLogin from './Meditate/SpotifyLogin';
 import LandingPage from './LandingPage';
 import SignUp from './SignUp'; 
 import LogIn from './LogIn'; 
-import Dashboard from './Dashboard';
+import Dashboard from './Dashboard/Dashboard';
 import MeditationPage from './Meditate/MeditationPage';
+import TherapistPage from './Therapist/TherapistPage';
+import TherapistRegister from './Therapist/TherapistRegister';
 import { setClientToken } from './Meditate/Spotify';
 
 const App = () => {
@@ -62,7 +64,7 @@ const App = () => {
       <Routes>
         <Route path="/spotify" element={<SpotifyLogin />} />
         {hasJwt ? (
-          <Route path="/" element={<SpotifyLogin />} />
+          <Route path="/" element={<Dashboard />} />
         ) : (
           <Route path="/" element={<LandingPage />} />
         )}
@@ -70,6 +72,8 @@ const App = () => {
         <Route path="/login" element={<LogIn />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/meditate" element={<MeditationPage />} />
+        <Route path="/therapist" element={<TherapistPage />} />
+        <Route path="/register-therapist" element={<TherapistRegister />} />
       </Routes>
     </Router>
   );

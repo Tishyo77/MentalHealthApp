@@ -66,7 +66,7 @@ export const LogIn = () => {
               localStorage.setItem('email', email);
               console.log("Logged In");
               localStorage.setItem('token', token);
-              navigate('/spotify');
+              navigate('/dashboard');
             }
             else if(data === "Incorrect")
             {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import NavBar from './NavBar';
+import NavBar from '../NavBar';
 import DayQuote from './DayQuote';
 import Reading from './Reading';
 import FeelingPopup from './FeelingPopup';
