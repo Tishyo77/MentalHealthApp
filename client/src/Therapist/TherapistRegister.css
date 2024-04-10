@@ -1,0 +1,89 @@
+.register-body {
+    background-color: rgb(255, 185, 100);
+    display: flex;
+    /*justify-content: center; */
+    align-items: flex-end; /* Align items to the bottom */
+    height: 100vh;
+    margin: 0;
+    padding: 2%;
+}
+
+.heading {
+    padding: 20px; /* Add padding for spacing */
+    position: sticky; /* Make the heading sticky */
+    top: 0; /* Stick to the top of the viewport */
+    z-index: 1000; /* Ensure it's above other elements */
+    padding: 20px;
+}
+
+.heading h2 {
+    margin: 0;
+}
+
+.therapist-register-container {
+    background-color: #e4a6a6;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Adjusted width to extend to the end of the page */
+    max-width: 100%; /* Added max-width for responsiveness */
+    margin-top: auto; /* Align to the bottom */
+    margin-bottom: 2%; /* Added margin-bottom to create space at the bottom */
+    font-weight: bold;
+    margin-left: 100px;
+    margin-right: 100px;
+    
+}
+
+.therapist-register-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.therapist-register-container label {
+    margin-bottom: 5px;
+}
+
+.therapist-register-container input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 25px; /* Adjusted border-radius for responsiveness */
+    border: 1px solid #ccc;
+}
+
+.therapist-register-container input[type="text"],
+.therapist-register-container input[type="email"],
+.therapist-register-container input[type="tel"],
+.therapist-register-container input[type="checkbox"] {
+    padding-left: 35px;
+}
+
+.therapist-register-container .input-box {
+    position: relative;
+}
+
+.therapist-register-container .input-box::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #eceaea;
+    border-radius: 500px;
+}
+
+.therapist-register-container button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.therapist-register-container button:hover {
+    background-color: #04070a;
+}
