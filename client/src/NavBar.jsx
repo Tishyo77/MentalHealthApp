@@ -33,6 +33,10 @@ const NavBar = () => {
         <div className="sidebar-icon">
           <i className="fas fa-flag-checkered"></i> {/* Challenges icon */}
         </div>
+
+       
+
+
       </div>
       <div className="mt-auto">
         <i className="fas fa-sign-out-alt fa-flip-horizontal logout-icon red"></i>
