@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import NavBar from '../NavBar';
 import "./TherapistPage.css";
 
 const TherapistPage = () => {
@@ -22,43 +23,49 @@ const TherapistPage = () => {
     const handleSearch = () => {
         // Filter therapists based on search term (city or area)
         const filteredTherapists = therapists.filter(therapist => {
-            return therapist.city.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                   therapist.locality.toLowerCase().includes(searchTerm.toLowerCase());
+            return (therapist.city?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                    therapist.address?.toLowerCase().includes(searchTerm.toLowerCase()));
         });
         return filteredTherapists;
     };
 
     return (
         <div className="therapist-page-container">
-            <div className="nvbr">
-                <div className="heading">Therapist Search</div>
-                <div className="search-bar">
-                    <input
-                        type="text"
-                        placeholder="Search by city or area"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    <button onClick={handleSearch}>Search</button>
-                </div>
-            </div>
+            <NavBar />
             <div className="therapist-page">
-
-                <ul>
-                    {handleSearch().map(therapist => (
-                        <li key={therapist._id}>
-                            <h2>{therapist.name}</h2>
-                            <p>Email: {therapist.email}</p>
-                            <p>Phone: {therapist.phone}</p>
-                            <p>Address: {therapist.address}</p>
-                            <p>Locality: {therapist.locality}</p>
-                            <p>City: {therapist.city}</p>
-                            <p>State: {therapist.state}</p>
-                            <p>Country: {therapist.country}</p>
-                            <p>Verification: {therapist.verification}</p>
-                        </li>
-                    ))}
-                </ul>
+                <div className="nvbr">
+                    <h1>Get Help: Find Therapists Near You</h1>
+                    <div className="search-bar">
+                        <input
+                            type="text"
+                            placeholder="Enter Locality or City"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className='list-container'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {handleSearch().map(therapist => (
+                                <tr key={therapist._id}>
+                                    <td>{therapist.name}</td>
+                                    <td>{therapist.email}</td>
+                                    <td>{therapist.phone}</td>
+                                    <td>{therapist.address}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

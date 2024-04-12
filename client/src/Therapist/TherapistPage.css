@@ -1,75 +1,98 @@
-.therapist-page-container {
+.therapist-page-container .therapist-page {
+    width: 94%;
+    height: 100%;
+    max-width: 94%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('./src/Images/TherapistBG.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px 0px 0px 30px;
+    z-index: -2;
+}
+
+.therapist-page-container .therapist-page::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Set the color and opacity of the overlay */
+    z-index: -1; /* Place the overlay behind the content */
+}
+
+.therapist-page-container .nvbr {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    background-color: #0d1117;
-    min-height: 100vh;
-    padding: 20px;
+    justify-content: space-between; 
+    align-items: center; 
+    margin: 2%;
+    margin-bottom: 5%;
 }
 
-.nvbr {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
-    background-color: #c9d1d9;
-    opacity: 34%;  
+.therapist-page-container h1 {
+    color: white;
 }
 
-.heading {
-    font-size: 24px;
-    font-weight: bold;
-    color: #010408;
-    margin-right: 15%;
-    padding: 5px;
+.therapist-page-container .heading {
+    width: 40%;
 }
 
-.search-bar {
-    display: flex;
-    align-items: center;
-   
+.therapist-page-container .search-bar {
+    margin-left: auto;
+    width: 30%;
+    height: 40px;
 }
 
-.search-bar input {
-    margin-right: 10px;
-}
-
-.search-bar button {
-    background-color: #238636;
-    color: #ffffff;
+.therapist-page-container .search-bar input {
+    font-size: 20px; 
     border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    border-radius: 15px;
+    border-radius: 20px; 
+    padding: 8px 12px;
+    width: 100%;
+    height: 100%;
+    padding-left: 20px;
 }
 
-.therapist-page {
+.therapist-page-container .therapist-page {
     width: 100%;
 }
 
-
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.therapist-page-container .list-container
+{
+    margin: 2%;
 }
 
-li {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #30363d;
-    padding-bottom: 20px;
-    width: 100%;
+.list-container table {
+    width: 100%; 
+    border-collapse: collapse; 
+    background-color: #00000075; 
+    border-radius: 10px;
 }
 
-h2 {
+.list-container th,
+.list-container td {
+    padding: 20px; 
+    text-align: left; 
+    text-align: center;
+    border-bottom: 1px solid #cccccc51; 
+    color: white;
+}
+
+.list-container th {
+    font-size: 22px;
+}
+
+.list-container td {
     font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #a5cf0c;
 }
 
-p {
-    font-size: 12px;
-    margin: 0;
-    color: #c9d1d9;
+.list-container tr:last-child td {
+    border-bottom: none; 
+}
+
+.list-container tbody tr {
+    margin-bottom: 1%; 
 }

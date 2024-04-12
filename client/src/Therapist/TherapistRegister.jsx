@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "./TherapistRegister.css";
+import logo from "../Images/SSLogo.png";
 
 const TherapistRegister = () => {
     const [therapist, setTherapist] = useState({
@@ -8,8 +9,6 @@ const TherapistRegister = () => {
         email: '',
         phone: '',
         address: '',
-        locality: '',
-        city: '',
         state: '',
         country: '',
         verification: '',
@@ -33,15 +32,13 @@ const TherapistRegister = () => {
         axios.post('http://localhost:4000/therapistRoute/add-therapist', therapist)
             .then((response) => {
                 console.log('Therapist added successfully:', response.data);
-                window.alert('Therapist added successfully !');
+                alert('We will be verifying your application and adding you shortly!');
                 // Reset the form fields and error message here
                 setTherapist({
                     name: '',
                     email: '',
                     phone: '',
                     address: '',
-                    locality: '',
-                    city: '',
                     state: '',
                     country: '',
                     verification: '',
@@ -56,89 +53,87 @@ const TherapistRegister = () => {
             });
     }
     return (
-        <div>
-            <div className='heading'>
-                <h2>Therapist Registration</h2>
+        <div className='therapist-container'>
+            <div className="background">
+                <img src={logo} alt="Logo" className="logo" />
             </div>
-            <div>
-                <div className=' register-body'>
-                    <div className="therapist-register-container">
-                        <form onSubmit={handleFormSubmit}>
-                            <label htmlFor="name">Name:</label>
+            <div className='formContainer'>
+                <div className="inputContainer">
+                    <h2 className='h2CustomStyle'>Start Helping Others!</h2>
+                    <form onSubmit={handleFormSubmit}>
+                        <label>
                             <input
                                 type="text"
                                 name="name"
+                                placeholder="Full Name"
                                 value={therapist.name}
                                 onChange={handleInputChange}
                             />
+                        </label>
 
-                            <label htmlFor="email">Email:</label>
+                        <label>
                             <input
                                 type="email"
                                 name="email"
+                                placeholder="Email Address"
                                 value={therapist.email}
                                 onChange={handleInputChange}
                             />
+                        </label>
 
-                            <label htmlFor="phone">Phone:</label>
+                        <label>
                             <input
                                 type="tel"
                                 name="phone"
+                                placeholder="Phone Number"
                                 value={therapist.phone}
                                 onChange={handleInputChange}
-                            />
+                        />
+                        </label>
 
-                            <label htmlFor="address">Address:</label>
+                        <label>
                             <input
                                 type="text"
                                 name="address"
+                                placeholder="Full Address"
                                 value={therapist.address}
                                 onChange={handleInputChange}
                             />
+                        </label>
 
-                            <label htmlFor="locality">Locality:</label>
-                            <input
-                                type="text"
-                                name="locality"
-                                value={therapist.locality}
-                                onChange={handleInputChange}
-                            />
-
-                            <label htmlFor="city">City:</label>
-                            <input
-                                type="text"
-                                name="city"
-                                value={therapist.city}
-                                onChange={handleInputChange}
-                            />
-
-                            <label htmlFor="state">State:</label>
+                        <label>
                             <input
                                 type="text"
                                 name="state"
+                                placeholder="State"
                                 value={therapist.state}
                                 onChange={handleInputChange}
                             />
+                        </label>
 
-                            <label htmlFor="country">Country:</label>
+                        <label>
                             <input
                                 type="text"
                                 name="country"
+                                placeholder="Country"
                                 value={therapist.country}
                                 onChange={handleInputChange}
                             />
+                        </label>
 
-                            <label htmlFor="verification">Verification:</label>
-                            <input
+                        <label>
+                        <input
                                 type="text"
                                 name="verification"
+                                placeholder="Verification Link"
                                 value={therapist.verification}
                                 onChange={handleInputChange}
                             />
-                            {errorMessage && <p style={{ color: 'white', fontWeight: 'lighter' }}>{errorMessage}</p>}
-                            <button type="submit">Submit</button>
-                        </form>
-                    </div>
+                        </label>
+
+                        {errorMessage && <p style={{ color: 'white', fontWeight: 'lighter' }}>{errorMessage}</p>}
+                        <button type="submit" className='btn btn-primary'>Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
