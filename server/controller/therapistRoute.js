@@ -15,9 +15,7 @@ router.get("/details", async (req, res) => {
 // Add a new therapist
 router.post("/add-therapist", async (req, res) => {
   try {
-  
     await Therapist.create(req.body);
-
     // Respond with a success message
     res.status(201).json({ message: 'Therapist added successfully' });
   } catch (error) {

@@ -9,6 +9,7 @@ import Dashboard from './Dashboard/Dashboard';
 import MeditationPage from './Meditate/MeditationPage';
 import TherapistPage from './Therapist/TherapistPage';
 import TherapistRegister from './Therapist/TherapistRegister';
+import LibraryPage from './Library/LibraryPage';
 import { setClientToken } from './Meditate/Spotify';
 
 const App = () => {
@@ -74,6 +75,7 @@ const App = () => {
         <Route path="/meditate" element={<MeditationPage />} />
         <Route path="/therapist" element={<TherapistPage />} />
         <Route path="/register-therapist" element={<TherapistRegister />} />
+        <Route path="/library" element={<LibraryPage />} />
       </Routes>
     </Router>
   );

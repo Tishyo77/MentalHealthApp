@@ -10,7 +10,7 @@ const therapistSchema = new mongoose.Schema({
     verification: { type: String },
     approved: { type: Boolean }, 
 }, {
-    collection: "therapist"
+    collection: "therapists"
 });
 
 module.exports = mongoose.model("therapist", therapistSchema);
