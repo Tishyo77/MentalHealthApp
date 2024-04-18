@@ -144,7 +144,7 @@ export const SignUp = () => {
             <input
               type="text"
               name="fullName"
-              placeholder="Full name"
+              placeholder="Full Name"
               value={fullName}
               onChange={handleFullNameChange}
             />

@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 userRoute = require("./controller/userRoute");
 detailsRoute = require("./controller/detailsRoute");
 therapistRoute = require("./controller/therapistRoute");
+bookRoute = require("./controller/bookRoute");
+meditateRoute = require("./controller/meditateRoute");
 const bodyparser = require("body-parser");
 const cors = require("cors");
 
@@ -20,6 +22,8 @@ app.use(cors());
 app.use("/userRoute", userRoute);
 app.use("/detailsRoute", detailsRoute);
 app.use("/therapistRoute", therapistRoute);
+app.use("/bookRoute", bookRoute);
+app.use("/meditateRoute", meditateRoute);
 
 app.listen(4000, () =>{
     console.log("Server started at 4000");

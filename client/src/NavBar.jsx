@@ -69,6 +69,10 @@ const NavBar = () => {
             )}
           </div>
         </div>
+
+       
+
+
       </div>
       <div className="mt-auto">
         <i className="fas fa-sign-out-alt fa-flip-horizontal logout-icon red"></i>
