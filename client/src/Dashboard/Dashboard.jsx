@@ -3,6 +3,7 @@ import NavBar from '../NavBar';
 import DayQuote from './DayQuote';
 import Reading from './Reading';
 import FeelingPopup from './FeelingPopup';
+import Graph from './Graph';
 import "./Dashboard.css";
 import axios from 'axios';
 
@@ -70,8 +71,12 @@ const Dashboard = () => {
                         <div className="qotd">
                             <DayQuote />
                         </div>
+                    </div>      
+                    <div className="bottom-left-half"   >
+                        <div className="graph">
+                                <Graph />
+                        </div>
                     </div>
-                  
                 </div>
                 <div className="right-dash-body">
                     <div className="upper-half">
@@ -79,8 +84,14 @@ const Dashboard = () => {
                             <Reading />
                         </div>
                     </div>
+                    <div className="bottom-right-half">
+                        <div className="reading-now">
+                            <Reading />
+                        </div>
+                    </div>
                 </div>
             </div>
+      
             {showFeelingPopup && <FeelingPopup onSelect={handleFeelingPopupConfirm} />}
         </div>
     );

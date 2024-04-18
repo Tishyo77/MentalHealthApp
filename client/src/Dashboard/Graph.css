@@ -1,7 +1,10 @@
-.dayquote-container {
+/* Graph.css */
+
+.graph-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     background: rgba(255, 255, 255, 0.8); 
     border-radius: 10px; 
     padding: 30px;
@@ -9,18 +12,7 @@
     height: 100%;
 }
 
-.heading
-{
+.graph-heading {
     margin-bottom: 30px;
 }
 
-.quote
-{
-    font-size: 35px;
-}
-
-.author
-{
-    font-size: 20px;
-    text-align: right;
-}
