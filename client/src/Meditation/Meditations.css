@@ -1,0 +1,49 @@
+/* Meditations.css */
+
+.meditations-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 1%;
+}
+
+.heading {
+    margin-bottom: 5%;
+}
+
+.meditation-list {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #ccc;
+}
+
+tbody tr {
+    background-color: #ff0000;
+    border-radius: 10px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

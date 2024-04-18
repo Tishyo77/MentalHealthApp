@@ -7,6 +7,7 @@ import SignUp from './SignUp';
 import LogIn from './LogIn'; 
 import Dashboard from './Dashboard/Dashboard';
 import MeditationPage from './Meditate/MeditationPage';
+import MeditatePage from './Meditation/MeditationPage';
 import TherapistPage from './Therapist/TherapistPage';
 import TherapistRegister from './Therapist/TherapistRegister';
 import LibraryPage from './Library/LibraryPage';
@@ -76,6 +77,7 @@ const App = () => {
         <Route path="/therapist" element={<TherapistPage />} />
         <Route path="/register-therapist" element={<TherapistRegister />} />
         <Route path="/library" element={<LibraryPage />} />
+        <Route path="/meditation" element={<MeditatePage />} />
       </Routes>
     </Router>
   );
