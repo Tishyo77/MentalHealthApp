@@ -175,14 +175,6 @@ const Meditations = forwardRef(({ name }, ref) => {
         event.target.playVideo();
     };
 
-    const handleProgressBarChange = (value) => {
-        const seekTime = (value / 100) * duration;
-        setCurrentTime(seekTime);
-        if (player) {
-            player.seekTo(seekTime, true);
-        }
-    };
-
     return (
         <div className="meditations-container">
             <div className='heading'>
@@ -212,13 +204,6 @@ const Meditations = forwardRef(({ name }, ref) => {
                 </table>
             </div>
             <div id="player"></div>
-            <input
-                type="range"
-                min="0"
-                max={duration}
-                value={currentTime}
-                onChange={(e) => handleProgressBarChange(e.target.value)}
-            />
         </div>
     );
 });

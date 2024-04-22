@@ -33,12 +33,6 @@ const MeditationPage = () => {
         }
     };
 
-    const handleProgressBarChange = (value) => {
-        if (meditationsRef.current) {
-            meditationsRef.current.seekTo(parseInt(value));
-        }
-    };
-
     return (
         <div className="meditation-page-container">
             <NavBar />
@@ -60,7 +54,6 @@ const MeditationPage = () => {
                         onNext={nextMeditation}
                         onPrevious={previousMeditation}
                         onPauseToggle={togglePause}
-                        onProgressBarChange={handleProgressBarChange}
                         currentTime={currentTime}
                         duration={duration}
                     />
