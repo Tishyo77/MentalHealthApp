@@ -113,7 +113,7 @@ export const SignUp = () => {
                         alert("Failed to create account");
                     }
 
-                    axios.post("http://localhost:4000/detailsRoute/add-user", { email: email, feelings: [] })
+                    axios.post("http://localhost:4000/detailsRoute/add-user", { email: email, feelings: [], diary: [{ date: "", entry: "" }]})
                       .then(result =>
                       {
                       })

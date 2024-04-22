@@ -1,94 +1,114 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import { CategoryScale, LineElement, Chart as ChartJS, LinearScale, PointElement} from 'chart.js';
+import axios from 'axios';
+import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, PointElement } from 'chart.js';
+import "./Graph.css";
+
 ChartJS.register(
     LineElement,
     CategoryScale,
     LinearScale,
     PointElement
 );
-import "./Graph.css"
 
 const Graph = () => {
-  
-    const data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'], 
+    const [feelingsData, setFeelingsData] = useState([]);
+
+    useEffect(() => {
+        const email = localStorage.getItem('email');
+        if (email) {
+            axios.get(`http://localhost:4000/detailsRoute/find-feelings?email=${email}`)
+                .then(response => {
+                    setFeelingsData(response.data.feelings);
+                })
+                .catch(error => {
+                    console.error("Error fetching feelings data:", error);
+                });
+        }
+    }, []);
+
+    const convertEmotionToNumber = (emotion) => {
+        switch (emotion) {
+            case 'Thriving':
+                return 6;
+            case 'Flourishing':
+                return 5;
+            case 'Stable':
+                return 4;
+            case 'Struggling':
+                return 3;
+            case 'Distressed':
+                return 2;
+            case 'Depressed':
+                return 1;
+            default:
+                return 0;
+        }
+    };
+
+    const formattedData = {
+        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
         datasets: [
             {
-                label: 'Emotion Score', 
-                data: [
-                    { x: 'January', y: 4 }, 
-                    { x: 'February', y: 6 }, 
-                    { x: 'March', y: 4 }, 
-                    { x: 'April', y: 6 }, 
-                    { x: 'May', y: 2 }, 
-                    { x: 'June', y: 4 }, 
-                ],
-                fill: false,
-                borderColor: 'red',
-                pointBackgroundColor: 'black',
-                tension: 0.1
-            },
-
-            {
-                label: 'Emotion Score', 
-                data: [
-                    { x: 'January', y: 5 }, 
-                    { x: 'February', y: 4 }, 
-                    { x: 'March', y: 2 }, 
-                    { x: 'April', y: 5}, 
-                    { x: 'May', y: 4}, 
-                    { x: 'June', y: 2 }, 
-                ],
-                fill: false,
+                label: 'First Week',
+                data: feelingsData.slice(0, 7).map(convertEmotionToNumber),
                 borderColor: 'pink',
-                pointBackgroundColor: 'black',
-                tension: 0.1
+                fill: false,
             },
-        
-        ]
+            {
+                label: 'Second Week',
+                data: feelingsData.slice(7, 14).map(convertEmotionToNumber),
+                borderColor: 'red',
+                fill: false,
+            },
+        ],
     };
-    // Chart.js options
+
     const options = {
+        aspectRatio: 5, // Adjust this value as needed
         scales: {
             y: {
-                min: 1, 
-                max: 7, 
                 ticks: {
-                   
-                    callback: function(value) {
-                        const emotions = ['Depressed', 'Lonely', 'Stressed', 'Worried', 'Neutral', 'Calm', 'Joyful'];
-                        const emotionIndex = Math.floor(value - 1);
-                        if (emotions[emotionIndex]) {
-                            return emotions[emotionIndex];
+                    reverse: true,
+                    stepSize: 1,
+                    min: 1,
+                    max: 6,
+                    callback: function (value, index, values) {
+                        switch (value) {
+                            case 6:
+                                return 'Thriving';
+                            case 5:
+                                return 'Flourishing';
+                            case 4:
+                                return 'Stable';
+                            case 3:
+                                return 'Struggling';
+                            case 2:
+                                return 'Distressed';
+                            case 1:
+                                return 'Depressed';
+                            default:
+                                return '';
                         }
-                        return ''; 
-                    }
-                }
-            }
+                    },
+                },
+            },
         },
-        layout: {
-            padding: {
-                left: 10,
-                right: 10,
-                top: 10,
-                bottom: 10
-            }
-        },
-        responsive: true,
-        maintainAspectRatio: false,
         plugins: {
             legend: {
                 display: true,
-                position: 'top'
-            }
+            },
         },
-        maxWidth: 400 
     };
+    
 
     return (
         <div className='graph-container'>
-            <Line data={data} options={options}/>
+            {feelingsData.length >= 14 ? (
+                <Line data={formattedData} options={options} />
+            ) : (
+                <p>Use SerenitySync for 14 days to track your mood.</p>
+            )}
         </div>
     );
 };

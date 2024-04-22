@@ -28,39 +28,33 @@ const FeelingPopup = ({ onSelect }) => {
         <h2>How are you feeling today?</h2>
         <div className="feeling-options">
           <div className="feeling-option">
-            <label className={`feeling-option-label ${selectedFeeling === 'Joyful' ? 'selected' : ''}`}>
-              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Joyful')} />
-              Joyful
+            <label className={`feeling-option-label ${selectedFeeling === 'Thriving' ? 'selected' : ''}`}>
+              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Thriving')} />
+              Thriving
             </label>
           </div>
           <div className="feeling-option">
-            <label className={`feeling-option-label ${selectedFeeling === 'Calm' ? 'selected' : ''}`}>
-              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Calm')} />
-              Calm
+            <label className={`feeling-option-label ${selectedFeeling === 'Flourishing' ? 'selected' : ''}`}>
+              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Flourishing')} />
+              Flourishing
             </label>
           </div>
           <div className="feeling-option">
-            <label className={`feeling-option-label ${selectedFeeling === 'Neutral' ? 'selected' : ''}`}>
-              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Neutral')} />
-              Neutral
+            <label className={`feeling-option-label ${selectedFeeling === 'Stable' ? 'selected' : ''}`}>
+              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Stable')} />
+              Stable
             </label>
           </div>
           <div className="feeling-option">
-            <label className={`feeling-option-label ${selectedFeeling === 'Worried' ? 'selected' : ''}`}>
-              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Worried')} />
-              Worried
+            <label className={`feeling-option-label ${selectedFeeling === 'Struggling' ? 'selected' : ''}`}>
+              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Struggling')} />
+              Struggling
             </label>
           </div>
           <div className="feeling-option">
-            <label className={`feeling-option-label ${selectedFeeling === 'Stressed' ? 'selected' : ''}`}>
-              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Stressed')} />
-              Stressed
-            </label>
-          </div>
-          <div className="feeling-option">
-            <label className={`feeling-option-label ${selectedFeeling === 'Lonely' ? 'selected' : ''}`}>
-              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Lonely')} />
-              Lonely
+            <label className={`feeling-option-label ${selectedFeeling === 'Distressed' ? 'selected' : ''}`}>
+              <input type="radio" name="feeling" onChange={() => handleFeelingSelection('Distressed')} />
+              Distressed
             </label>
           </div>
           <div className="feeling-option">

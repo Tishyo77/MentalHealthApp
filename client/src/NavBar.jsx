@@ -3,7 +3,6 @@ import './NavBar.css';
 import apiClient from './Meditate/Spotify';
 import { Link } from 'react-router-dom';
 
-
 const NavBar = () => {
   const [image, setImage] = useState(
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdLAY3C19kL0nV2bI_plU3_YFCtra0dpsYkg&usqp=CAU"
@@ -17,10 +16,10 @@ const NavBar = () => {
     })
   }, [])
 
-  
-  const handleDropdownChange = () => {
-
+  const handleDropdownChange = (selectedOption) => {
     setShowDropdown(false); // Hide dropdown after selection
+    // Handle the selected option
+    console.log("Selected Option:", selectedOption);
   };
 
   const toggleDropdown = () => {
@@ -35,47 +34,49 @@ const NavBar = () => {
     setShowDropdown(false);
   };
 
+  const handleLogout = () => {
+    // Remove token from local storage
+    localStorage.removeItem('token');
+    // Reload the page
+    window.location.reload();
+  };
+
   return (
     <div className="container-fluid sidebar">
       <div className="profile-section">
         <div className="profile-circle">
-          {/* <i className="fas fa-user-circle fa-2x"></i> */}
           <img src={image} className="profile-img" alt="profile" />
         </div>
       </div>
       
       <div className="icon-section">
-      <div className="sidebar-icon">
+        <Link to="/" className="sidebar-icon">
           <i className="fas fa-chart-line"></i> {/* Settings icon */}
-        </div>
-        <div className="sidebar-icon">
+        </Link>
+        <Link to="/library" className="sidebar-icon">
           <i className="fas fa-book"></i> {/* Read icon */}
-        </div>
-        <div className="sidebar-icon">
+        </Link>
+        <Link to="/meditation" className="sidebar-icon">
           <i className="fas fa-volume-up"></i> {/* Listen icon */}
-        </div>
-        <div className="sidebar-icon">
+        </Link>
+        <Link to="/therapist" className="sidebar-icon">
           <i className="fas fa-hand-holding-heart"></i> {/* Get Help icon */}
-        </div>
+        </Link>
         
         <div className="sidebar-icon" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <div className="dropdown">
             <button className="dropbtn" onClick={toggleDropdown}><i className="fab fa-discord"></i></button>
             {showDropdown && (
               <div className="dropdown-content">
-                <a href="#" onClick={() => handleDropdownChange("Serena 1")}>Serena 1.0</a>
-                <a href="#" onClick={() => handleDropdownChange("Serena 2")}>Serena 2.0</a>
+                <button onClick={() => handleDropdownChange("Serena 1")}>Serena 1.0</button>
+                <button onClick={() => handleDropdownChange("Serena 2")}>Serena 2.0</button>
               </div>
             )}
           </div>
         </div>
-
-       
-
-
       </div>
       <div className="mt-auto">
-        <i className="fas fa-sign-out-alt fa-flip-horizontal logout-icon red"></i>
+        <i className="fas fa-sign-out-alt fa-flip-horizontal logout-icon red" onClick={handleLogout}></i>
       </div>
     </div>
   );
