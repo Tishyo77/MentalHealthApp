@@ -173,7 +173,7 @@ const Meditations = forwardRef(({ name }, ref) => {
 
     const onPlayerReady = (event) => {
         event.target.playVideo();
-    };
+    };   
 
     return (
         <div className="meditations-container">
