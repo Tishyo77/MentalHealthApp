@@ -49,6 +49,7 @@ const LibraryPage = () => {
                                 name={book.name}
                                 author={book.author}
                                 linkImage={book.linkImage}
+                                linkBook={book.linkBook} 
                             />
                         ))}
                     </div>
