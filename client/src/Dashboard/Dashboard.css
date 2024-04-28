@@ -29,7 +29,7 @@
 .dashboard-container .bottom-left-half{
 
     height: 30%;
-    margin-top: 2.2%;
+    margin-top: 3.7%;
 }
 
 .dashboard-container .bottom-right-half{
@@ -39,12 +39,14 @@
 .dashboard-container .greeting-container
 {
     height: 25%;
-    margin-bottom: 0;
+    margin-bottom: 1.5%;
+    font-family: 'Montserrat';
 }
 
 .dashboard-container .qotd 
 {
     height: 75%;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .dashboard-container .graph{
@@ -52,7 +54,7 @@
 }
 .dashboard-container .right-dash-body
 {
-    margin-top: 1%; 
+    margin-top: 2%; 
     margin-right: 2%;
     width: 30%;
     height: 98%;

@@ -107,7 +107,7 @@ const Graph = () => {
             {feelingsData.length >= 14 ? (
                 <Line data={formattedData} options={options} />
             ) : (
-                <p>Use SerenitySync for 14 days to track your mood.</p>
+                <h2 className='required-days'>Use SerenitySync for 14 days to track your mood.</h2>
             )}
         </div>
     );

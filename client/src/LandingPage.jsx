@@ -22,6 +22,9 @@ const LandingPage = () => {
         <Link to="/signup" className="signup-btn">
           Embark on Serenity
         </Link>
+        <Link to="/register-therapist" className="register-btn">
+          Register as a Therapist
+        </Link>
       </div>
     </div>
   );

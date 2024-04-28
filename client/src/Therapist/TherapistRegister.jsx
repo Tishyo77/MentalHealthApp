@@ -24,11 +24,29 @@ const TherapistRegister = () => {
         });
     };
 
+    const isEmailValid = (email) => {
+        // Regular expression to validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };    
+
     const handleFormSubmit = (e) => {
         e.preventDefault();
-
+    
+        // Validation: Check if any field is empty
+        if (!therapist.name || !therapist.email || !therapist.phone || !therapist.address || !therapist.state || !therapist.country || !therapist.verification) {
+            setErrorMessage('Please fill in all fields.');
+            return;
+        }
+    
+        // Validation: Check if email is valid
+        if (!isEmailValid(therapist.email)) {
+            setErrorMessage('Please enter a valid email address.');
+            return;
+        }
+    
         const approvedBool = therapist.approved === 'true';
-
+    
         axios.post('http://localhost:4000/therapistRoute/add-therapist', therapist)
             .then((response) => {
                 console.log('Therapist added successfully:', response.data);
@@ -45,13 +63,13 @@ const TherapistRegister = () => {
                     approved: false, 
                 });
                 setErrorMessage('');
-
             })
             .catch((error) => {
                 console.error('Error adding therapist:', error.message);
                 window.alert('Error adding therapist. Please try again.');
             });
-    }
+    };    
+    
     return (
         <div className='therapist-container'>
             <div className="background">

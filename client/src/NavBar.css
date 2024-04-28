@@ -78,7 +78,7 @@
 }
 
 .dropbtn:hover{
-  color: rgb(99, 182, 255);
+  color: rgb(255, 255, 255);
   cursor: pointer;
 }
 .dropdown-content {
@@ -124,12 +124,12 @@
 }
 
 .sidebar-icon:hover {
-  color: rgb(99, 182, 255);
+  color: rgb(254, 254, 255);
   cursor: pointer;
 }
 
 
 .logout-icon:hover {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 175, 175);
   cursor: pointer;
 }

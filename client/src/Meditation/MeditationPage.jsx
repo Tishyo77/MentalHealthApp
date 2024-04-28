@@ -7,8 +7,6 @@ import "./MeditationPage.css";
 
 const MeditationPage = () => {
     const [currentPlaylist, setCurrentPlaylist] = useState(null);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(0);
     const meditationsRef = useRef();
 
     const handlePlaylistClick = (playlistName) => {
@@ -39,23 +37,16 @@ const MeditationPage = () => {
             <div className="meditation-page">
                 <div className='playlist-and-items'>
                     {currentPlaylist ? (
-                        <Meditations
-                            ref={meditationsRef}
-                            name={currentPlaylist}
-                            onDurationChange={setDuration}
-                            onCurrentTimeChange={setCurrentTime}
-                        />
+                        <Meditations ref={meditationsRef} name={currentPlaylist} />
                     ) : (
                         <Playlists onPlaylistClick={handlePlaylistClick} />
                     )}
                 </div>
                 <div className="controller">
-                    <Controller
-                        onNext={nextMeditation}
-                        onPrevious={previousMeditation}
-                        onPauseToggle={togglePause}
-                        currentTime={currentTime}
-                        duration={duration}
+                    <Controller 
+                        onNext={nextMeditation} 
+                        onPrevious={previousMeditation} 
+                        onPauseToggle={togglePause} 
                     />
                 </div>
             </div>

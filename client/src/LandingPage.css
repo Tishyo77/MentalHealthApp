@@ -60,7 +60,8 @@
 }
 
 .landing-page .login-btn,
-.landing-page .signup-btn {
+.landing-page .signup-btn,
+.landing-page .register-btn {
   margin-right: 20px;
   padding-left: 50px;
   margin-top: 10px;
@@ -98,6 +99,18 @@
 }
 
 .landing-page .signup-btn:hover {
+  background-color: #ffffff6c;
+  color: rgb(255, 255, 255);
+}
+
+.landing-page .register-btn {
+  color: white;
+  background-color: #0000001e;
+  border: 1px solid #3F5489;
+  border-radius: 10px;
+}
+
+.landing-page .register-btn:hover {
   background-color: #ffffff6c;
   color: rgb(255, 255, 255);
 }

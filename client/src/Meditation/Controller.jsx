@@ -1,7 +1,7 @@
 import React from 'react';
 import './Controller.css';
 
-const Controller = ({ onNext, onPrevious, onPauseToggle, onProgressBarChange, currentTime, duration }) => {
+const Controller = ({ onNext, onPrevious, onPauseToggle }) => {
     const handlePauseToggle = () => {
         onPauseToggle();
     };

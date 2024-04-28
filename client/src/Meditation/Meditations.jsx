@@ -2,21 +2,18 @@ import React, { useEffect, useState, forwardRef, useImperativeHandle } from 'rea
 import axios from 'axios';
 import './Meditations.css';
 
+
 let player;
-let interval;
 
 const Meditations = forwardRef(({ name }, ref) => {
     const [meditationLinks, setMeditationLinks] = useState([]);
     const [meditationTitles, setMeditationTitles] = useState([]);
     const [currentVideoId, setCurrentVideoId] = useState(null);
-    const [videoDurations, setVideoDurations] = useState({});
+    const [videoDurations, setVideoDurations] = useState({}); 
     const [currentMeditationIndex, setCurrentMeditationIndex] = useState(0);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(0);
-
     let headingName;
 
-    if (name === "sleep")
+    if(name === "sleep")
         headingName = "Sleep";
 
     useImperativeHandle(ref, () => ({
@@ -34,6 +31,10 @@ const Meditations = forwardRef(({ name }, ref) => {
                 setCurrentMeditationIndex(currentMeditationIndex + 1);
                 const videoId = getYouTubeVideoId(meditationLinks[currentMeditationIndex + 1]);
                 setCurrentVideoId(videoId);
+                if (player) {
+                    player.cueVideoById({videoId: videoId, startSeconds: 0});
+                    player.seekTo(0); // Seek to the beginning of the video
+                }
             }
         },
         previousMeditation() {
@@ -41,11 +42,10 @@ const Meditations = forwardRef(({ name }, ref) => {
                 setCurrentMeditationIndex(currentMeditationIndex - 1);
                 const videoId = getYouTubeVideoId(meditationLinks[currentMeditationIndex - 1]);
                 setCurrentVideoId(videoId);
-            }
-        },
-        seekTo(time) {
-            if (player) {
-                player.seekTo(time, true);
+                if (player) {
+                    player.cueVideoById({videoId: videoId, startSeconds: 0});
+                    player.seekTo(0); // Seek to the beginning of the video
+                }
             }
         }
     }));
@@ -86,26 +86,9 @@ const Meditations = forwardRef(({ name }, ref) => {
         }
     }, [currentVideoId]);
 
-    useEffect(() => {
-        if (player) {
-            interval = setInterval(() => {
-                setCurrentTime(player.getCurrentTime());
-            }, 1000);
-            return () => clearInterval(interval);
-        }
-    }, [player]);
-
-    useEffect(() => {
-        setDuration(getYouTubeVideoDuration(currentVideoId));
-    }, [currentVideoId]);
-
-    const getYouTubeVideoDuration = (videoId) => {
-        return videoDurations[videoId] || 0;
-    };
-
     const fetchVideoDuration = async (videoId) => {
         try {
-            const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=AIzaSyAHHDjp5LO4facG2HRW2GBgxVN874a3eus`);
+            const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=g`);
             const duration = response.data.items[0].contentDetails.duration;
             return formatDuration(duration);
         } catch (error) {
@@ -113,16 +96,16 @@ const Meditations = forwardRef(({ name }, ref) => {
             return '';
         }
     };
-
+    
     const formatDuration = (duration) => {
         const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
         const hours = match[1] ? parseInt(match[1]) : 0;
         const minutes = match[2] ? parseInt(match[2]) : 0;
         const seconds = match[3] ? parseInt(match[3]) : 0;
-
-        return hours * 3600 + minutes * 60 + seconds;
+    
+        return `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
     };
-
+    
     const padZero = (number) => {
         return number.toString().padStart(2, '0');
     };
@@ -130,6 +113,10 @@ const Meditations = forwardRef(({ name }, ref) => {
     const handlePlayClick = (index) => {
         const videoId = getYouTubeVideoId(meditationLinks[index]);
         setCurrentVideoId(videoId);
+        if (player) {
+            player.cueVideoById(videoId, 0); // Cue the video
+            player.playVideo(); // Start playing the video
+        }
     };
 
     const getYouTubeVideoId = (url) => {
@@ -150,30 +137,32 @@ const Meditations = forwardRef(({ name }, ref) => {
     };
 
     const createPlayer = (videoId) => {
-        if (player)
+        if (player) {
             player.destroy();
-
+        }
+    
         player = new window.YT.Player('player', {
             height: '0',
             width: '0',
             videoId: videoId,
-            events: {
-                onReady: onPlayerReady
-            },
             playerVars: {
                 controls: 0,
                 disablekb: 1,
-                autoplay: 1,
                 modestbranding: 1,
                 rel: 0,
-                showinfo: 0
+                showinfo: 0,
+            },
+            events: {
+                onReady: (event) => {
+                    event.target.playVideo(); // Start playing the video
+                }
             }
         });
     };
-
+    
     const onPlayerReady = (event) => {
         event.target.playVideo();
-    };   
+    };
 
     return (
         <div className="meditations-container">
