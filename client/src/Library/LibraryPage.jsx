@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavBar from '../NavBar';
 import BookCard from "./BookCard";
-import DocViewer from 'react-doc-viewer';
 import "./LibraryPage.css";
 
 const LibraryPage = () => {
@@ -30,10 +29,6 @@ const LibraryPage = () => {
         return filteredBooks;
     };
 
-    const openGoogleDrive = (link) => {
-        window.open(link, "_blank");
-    };
-
     return (
         <div className="library-page-container">
             <NavBar />
@@ -54,21 +49,12 @@ const LibraryPage = () => {
                                 name={book.name}
                                 author={book.author}
                                 linkImage={book.linkImage}
+                                linkBook={book.linkBook} 
                             />
                         ))}
                     </div>
                 </div>
-                <div className="google-drive-buttons">
-                    <div>
-                        <button onClick={() => openGoogleDrive("https://drive.google.com/file/d/1bffwaGirJgMd1hd26eqFSXjY2jzDVwJy/view?usp=drivesdk")}>The Art of Feeling Better</button>
-                    </div>
-                    <div className="gap"></div>
-                    <div>
-                        <button onClick={() => openGoogleDrive("https://drive.google.com/file/d/1wkebD44hW48DB_jBsIdWhLkXsROcoItU/view?usp=drive_link")}>50 Ways to Worry Less</button>
-                    </div>
-                </div>
             </div>
-            {/* <App /> */}
         </div>
     );
 };
