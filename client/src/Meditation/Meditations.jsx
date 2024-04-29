@@ -1,9 +1,8 @@
 import React, { useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import axios from 'axios';
+import YouTube from 'react-youtube';
+import CoverCard from './CoverCard';
 import './Meditations.css';
-
-
-let player;
 
 const Meditations = forwardRef(({ name }, ref) => {
     const [meditationLinks, setMeditationLinks] = useState([]);
@@ -11,6 +10,7 @@ const Meditations = forwardRef(({ name }, ref) => {
     const [currentVideoId, setCurrentVideoId] = useState(null);
     const [videoDurations, setVideoDurations] = useState({}); 
     const [currentMeditationIndex, setCurrentMeditationIndex] = useState(0);
+    const [player, setPlayer] = useState(null);
     let headingName;
 
     if(name === "sleep")
@@ -132,7 +132,20 @@ const Meditations = forwardRef(({ name }, ref) => {
             tag.src = 'https://www.youtube.com/iframe_api';
             const firstScriptTag = document.getElementsByTagName('script')[0];
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            window.onYouTubeIframeAPIReady = () => createPlayer(videoId);
+            window.onYouTubeIframeAPIReady = () => {
+                setPlayer(new window.YT.Player('player', {
+                    height: '0',
+                    width: '0',
+                    videoId: videoId,
+                    playerVars: {
+                        controls: 0,
+                        disablekb: 1,
+                        modestbranding: 1,
+                        rel: 0,
+                        showinfo: 0,
+                    }
+                }));
+            };
         }
     };
 
@@ -141,7 +154,7 @@ const Meditations = forwardRef(({ name }, ref) => {
             player.destroy();
         }
     
-        player = new window.YT.Player('player', {
+        const newPlayer = new window.YT.Player('player', {
             height: '0',
             width: '0',
             videoId: videoId,
@@ -158,10 +171,12 @@ const Meditations = forwardRef(({ name }, ref) => {
                 }
             }
         });
+    
+        setPlayer(newPlayer);
     };
     
-    const onPlayerReady = (event) => {
-        event.target.playVideo();
+    const onReady = (event) => {
+        setPlayer(event.target);
     };
 
     return (
@@ -192,7 +207,9 @@ const Meditations = forwardRef(({ name }, ref) => {
                     </tbody>
                 </table>
             </div>
-            <div id="player"></div>
+            <div>
+                <CoverCard currentVideoId={currentVideoId} player={player} />
+            </div>
         </div>
     );
 });
