@@ -5,6 +5,7 @@ detailsRoute = require("./controller/detailsRoute");
 therapistRoute = require("./controller/therapistRoute");
 bookRoute = require("./controller/bookRoute");
 meditateRoute = require("./controller/meditateRoute");
+avatarRoute = require("./controller/avatarRoute");
 const bodyparser = require("body-parser");
 const cors = require("cors");
 
@@ -24,6 +25,7 @@ app.use("/detailsRoute", detailsRoute);
 app.use("/therapistRoute", therapistRoute);
 app.use("/bookRoute", bookRoute);
 app.use("/meditateRoute", meditateRoute);
+app.use("/avatarRoute", avatarRoute);
 
 app.listen(4000, () =>{
     console.log("Server started at 4000");

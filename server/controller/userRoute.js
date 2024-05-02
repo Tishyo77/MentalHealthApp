@@ -111,5 +111,21 @@ userRoute.post("/update-date", async (req, res) => {
     }
 });
 
+userRoute.delete("/delete-user", async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const deletedUser = await userSchema.findOneAndDelete({ email: email });
+
+        if (deletedUser) {
+            res.json({ message: 'User deleted successfully', deletedUser });
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 
 module.exports = userRoute;

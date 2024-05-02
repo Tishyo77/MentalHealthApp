@@ -115,6 +115,37 @@ detailsRoute.put("/edit-entry", async (req, res) => {
     }
 });
 
+detailsRoute.get("/find-avatar", async (req, res) => {
+    const { email } = req.query;
+
+    try {
+        const user = await detailsSchema.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ avatar: user.avatar });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+detailsRoute.delete("/delete-details", async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const deletedUser = await detailsSchema.findOneAndDelete({ email: email });
+
+        if (deletedUser) {
+            res.json({ message: 'User deleted successfully', deletedUser });
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 
 module.exports = detailsRoute;
