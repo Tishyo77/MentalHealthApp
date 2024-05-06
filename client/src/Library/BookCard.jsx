@@ -10,7 +10,7 @@ const BookCard = ({ name, author, linkImage, linkBook }) => {
         <h3>{name}</h3>
         <p>{author}</p>
         <Link to={linkBook} target="_blank" rel="noopener noreferrer">
-          <button>Read Book</button>
+          <button className='buton'>Read Book</button>
         </Link>
       </div>
     </div>

@@ -34,7 +34,10 @@ const TherapistPage = () => {
             <NavBar />
             <div className="therapist-page">
                 <div className="nvbr">
-                    <h1>Get Help: Find Therapists Near You</h1>
+                    <div>
+                        <h1>Where Healing Begins</h1>
+                        <h2>Explore Our Therapist Directory</h2>
+                    </div>
                     <div className="search-bar">
                         <input
                             type="text"

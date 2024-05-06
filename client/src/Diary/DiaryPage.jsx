@@ -9,6 +9,7 @@ const DiaryPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [editableEntryIndex, setEditableEntryIndex] = useState(-1); // Index of the entry being edited, -1 means no entry is being edited
     const [showTextarea, setShowTextarea] = useState(true); // State to control whether to show the textarea
+    const [filteredEntries, setFilteredEntries] = useState(entries); // New state to store filtered entries
 
     useEffect(() => {
         const fetchEntries = async () => {
@@ -17,6 +18,7 @@ const DiaryPage = () => {
                 try {
                     const response = await axios.get(`http://localhost:4000/detailsRoute/find-entries?email=${userEmail}`);
                     setEntries(response.data.diary);
+                    setFilteredEntries(response.data.diary); // Initialize filteredEntries with entries
                     // Check if there's an entry for today, if so, set it as editable
                     const today = new Date().toISOString().split('T')[0];
                     const todayEntryIndex = response.data.diary.findIndex(entry => entry.date === today);
@@ -62,6 +64,20 @@ const DiaryPage = () => {
             }
         }
     };
+
+    const handleSearchChange = (e) => {
+        const term = e.target.value;
+        setSearchTerm(term);
+
+        if (term === '') {
+            setFilteredEntries(entries);
+        } else {
+            const filtered = entries.filter((entry) =>
+                entry.date.includes(term)
+            );
+            setFilteredEntries(filtered);
+        }
+    };
         
 
     return (
@@ -69,40 +85,51 @@ const DiaryPage = () => {
             <NavBar />
             <div className="diary-page">
                 <div className="nvbr">
-                    <h1>Record Your Thoughts</h1>
+                    <div>
+                        <h1>Journey Within</h1>
+                        <h2>Your Personal Diary</h2>
+                    </div>
                     <div className="search-bar">
                         <input
                             type="text"
                             placeholder="Enter Date"
                             value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onChange={handleSearchChange}
                         />
                     </div>
                 </div>
-                {showTextarea && ( // Only render the textarea if showTextarea is true
+                {showTextarea && (
                     <div className="current-entry">
+                        <div className="diary-entry">
+                        <div className="diary-header">
+                            <h2>Dear Diary,</h2>
+                            <p>{new Date().toLocaleDateString()}</p>
+                        </div>
                         <textarea
                             value={currentEntry}
                             onChange={(e) => setCurrentEntry(e.target.value)}
                             placeholder="Write your entry..."
                         />
-                        <button onClick={handleSaveEntry}>Save Entry</button>
+                        </div>
+                        <button className='buton-save' onClick={handleSaveEntry}>Save Entry</button>
                     </div>
                 )}
                 <div className="entries">
-                    {entries.reverse().map(({ date, entry }, index) => (
-                        <div key={index} className="entry">
-                            <p>{date}</p>
-                            <p>{entry}</p>
-                            {new Date(date).toISOString().split('T')[0] === new Date().toISOString().split('T')[0] && (
-                                <button onClick={() => {
-                                    setCurrentEntry(entry);
-                                    setEditableEntryIndex(index);
-                                    setShowTextarea(true); // Show the textarea when editing the current day's entry
-                                }}>Edit</button>
-                            )}
-                        </div>
-                    ))}
+                    {filteredEntries
+                        .sort((a, b) => new Date(b.date) - new Date(a.date))
+                        .map(({ date, entry }, index) => (
+                            <div key={index} className="entry">
+                                <p>{date}</p>
+                                <p>{entry}</p>
+                                {new Date(date).toISOString().split('T')[0] === new Date().toISOString().split('T')[0] && (
+                                    <button className="buton-edit" onClick={() => {
+                                        setCurrentEntry(entry);
+                                        setEditableEntryIndex(index);
+                                        setShowTextarea(true); // Show the textarea when editing the current day's entry
+                                    }}>Edit</button>
+                                )}
+                            </div>
+                        ))}
                 </div>
 
             </div>

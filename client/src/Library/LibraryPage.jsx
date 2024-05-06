@@ -34,15 +34,19 @@ const LibraryPage = () => {
             <NavBar />
             <div className="library-page">
                 <div className="nvbr">
-                    <h1>Read</h1>
+                    <div>
+                        <h1>Unlock Your Best Self </h1>
+                        <h2>Browse Our Self-Help Collection</h2>
+                    </div>
                     <div className="search-bar">
                         <input
                             type="text"
-                            placeholder="Search Books"
+                            placeholder="Enter Title or Author"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
+                </div>
                     <div className="books-container">
                         {handleSearch().map(book => (
                             <BookCard
@@ -55,7 +59,6 @@ const LibraryPage = () => {
                     </div>
                 </div>
             </div>
-        </div>
     );
 };
 
