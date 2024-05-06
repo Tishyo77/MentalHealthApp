@@ -156,7 +156,6 @@ detailsRoute.patch("/update-avatar/:email", async (req, res) => {
     }
 });
 
-// detailsRoute.js
 detailsRoute.get("/get-avatar/:email", async (req, res) => {
     try {
       const { email } = req.params;
@@ -169,7 +168,44 @@ detailsRoute.get("/get-avatar/:email", async (req, res) => {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  });
+});
+
+detailsRoute.post("/update-last-read-book", async (req, res) => {
+    const { email, name, author, linkImage, linkBook } = req.body;
+  
+    try {
+      const user = await detailsSchema.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      // Update the last read book information
+      user.lastReadBook = { name, author, linkImage, linkBook };
+      await user.save();
+  
+      res.status(200).json({ message: "Last read book updated successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+detailsRoute.get("/get-last-read-book", async (req, res) => {
+    const { email } = req.query;
+
+    try {
+        const user = await detailsSchema.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const lastReadBook = user.lastReadBook || {};
+        res.status(200).json(lastReadBook);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
 
 
 module.exports = detailsRoute;
