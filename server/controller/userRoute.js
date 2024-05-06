@@ -24,18 +24,17 @@ const verifyToken = (req, res, next) => {
 
 userRoute.get("/retrieve", async (req, res) => {
     try {
-        const { email } = req.query;
-        const user = await userSchema.findOne({ email: email });
-
-        if (user) {
-            res.json({ email: user.email, name: user.name, date: user.date });
-        } else {
-            res.status(404).json({ error: 'User not found' });
-        }
+      const { email } = req.query;
+      const user = await userSchema.findOne({ email: email });
+      if (user) {
+        res.json({ email: user.email, name: user.name, date: user.date }); // Include the avatar field
+      } else {
+        res.status(404).json({ error: 'User not found' });
+      }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error.message });
     }
-});
+  });
 
 userRoute.post("/login-user", async (req, res) => 
 {

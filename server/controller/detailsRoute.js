@@ -115,22 +115,6 @@ detailsRoute.put("/edit-entry", async (req, res) => {
     }
 });
 
-detailsRoute.get("/find-avatar", async (req, res) => {
-    const { email } = req.query;
-
-    try {
-        const user = await detailsSchema.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        res.status(200).json({ avatar: user.avatar });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Internal server error" });
-    }
-});
-
 detailsRoute.delete("/delete-details", async (req, res) => {
     try {
         const { email } = req.body;
@@ -146,6 +130,46 @@ detailsRoute.delete("/delete-details", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+detailsRoute.patch("/update-avatar/:email", async (req, res) => {
+    try {
+        const { email } = req.params;
+        const { avatar } = req.body;
+
+        console.log('Received request to update avatar for email:', email);
+        console.log('New avatar value:', avatar);
+
+        const user = await detailsSchema.findOne({ email });
+        if (!user) {
+            console.log('User not found for email:', email);
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        user.avatar = avatar;
+        const savedUser = await user.save();
+        console.log('User updated successfully:', savedUser);
+
+        res.status(200).json({ message: "Avatar updated successfully" });
+    } catch (error) {
+        console.error('Error updating avatar:', error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+// detailsRoute.js
+detailsRoute.get("/get-avatar/:email", async (req, res) => {
+    try {
+      const { email } = req.params;
+      const user = await detailsSchema.findOne({ email: email }, { avatar: 1 });
+      if (user) {
+        res.json({ avatar: user.avatar });
+      } else {
+        res.status(404).json({ error: 'User not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 
 
 module.exports = detailsRoute;
