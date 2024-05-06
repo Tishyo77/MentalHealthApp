@@ -45,6 +45,8 @@ const Playlists = ({ onPlaylistClick }) => {
                 </div>
             </div>
         </div>
+        
+      
     );
 };
 

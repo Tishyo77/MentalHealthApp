@@ -1,6 +1,6 @@
 .meditation-page-container .meditation-page {
     width: 94%;
-    height: 100%;
+    overflow-y: auto; 
     max-width: 94%;
     position: absolute;
     top: 0;
@@ -11,10 +11,11 @@
     z-index: -2;
 }
 
+
 .meditation-page-container .playlist-and-items
 {
     margin: 2%;
     padding: 1%;
-    width: 65%;
-    background-color: rgb(254, 207, 255);
-}
+    width: 65%; 
+    /* background-color: rgb(254, 207, 255); */
+}  

@@ -26,8 +26,8 @@ const CoverCard = ({ currentVideoId, player }) => {
 
     const createPlayer = (videoId) => {
         const newPlayer = new window.YT.Player('player', {
-            height: '390',
-            width: '640',
+            height: '300',
+            width: '500.11',
             videoId: videoId,
             playerVars: {
                 autoplay: 1,
@@ -48,8 +48,8 @@ const CoverCard = ({ currentVideoId, player }) => {
                     <YouTube
                         videoId={currentVideoId}
                         opts={{
-                            height: '390',
-                            width: '640',
+                            height: '300',
+                            width: '500.11 ',
                             playerVars: {
                                 autoplay: 1,
                                 controls: 1,

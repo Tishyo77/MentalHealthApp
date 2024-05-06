@@ -22,41 +22,41 @@ const MeditationPage = () => {
         setShowBackButton(false);
     };
 
-    const nextMeditation = () => {
-        if (meditationsRef.current) {
-            meditationsRef.current.nextMeditation();
-        }
-    };
+    // const nextMeditation = () => {
+    //     if (meditationsRef.current) {
+    //         meditationsRef.current.nextMeditation();
+    //     }
+    // };
 
-    const previousMeditation = () => {
-        if (meditationsRef.current) {
-            meditationsRef.current.previousMeditation();
-        }
-    };
+    // const previousMeditation = () => {
+    //     if (meditationsRef.current) {
+    //         meditationsRef.current.previousMeditation();
+    //     }
+    // };
 
-    const togglePause = () => {
-        if (meditationsRef.current) {
-            meditationsRef.current.togglePause();
-        }
-    };
+    // const togglePause = () => {
+    //     if (meditationsRef.current) {
+    //         meditationsRef.current.togglePause();
+    //     }
+    // };
 
     return (
         <div className="meditation-page-container">
             <NavBar />
-            <div className="meditation-page">
+            <div className="meditation-page" >
                 {showBackButton && (
                     <button onClick={handleBackButtonClick}>Back</button>
                 )}
-                <div className='playlist-and-items'>
+                {/* <div className='playlist-and-items'> */}
                     {currentPlaylist ? (
                         <Meditations ref={meditationsRef} name={currentPlaylist} />
                     ) : (
                         <Playlists onPlaylistClick={handlePlaylistClick} />
                     )}
-                </div>
-                <div className="controller">
+                {/* </div> */}
+                {/* <div className="controller">
                     <Controller onNext={nextMeditation} onPrevious={previousMeditation} onPauseToggle={togglePause} />
-                </div>
+                </div> */}
             </div>
         </div>
     );
