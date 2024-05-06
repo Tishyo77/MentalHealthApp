@@ -10,3 +10,4 @@ const detailsSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("detailsSchema", detailsSchema);
+
