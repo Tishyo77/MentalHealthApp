@@ -1,19 +1,21 @@
-import React, { useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useEffect, useState, forwardRef, useImperativeHandle, useRef } from 'react';
 import axios from 'axios';
 import YouTube from 'react-youtube';
 import CoverCard from './CoverCard';
+import Controller from './Controller';
 import './Meditations.css';
 
 const Meditations = forwardRef(({ name }, ref) => {
     const [meditationLinks, setMeditationLinks] = useState([]);
     const [meditationTitles, setMeditationTitles] = useState([]);
     const [currentVideoId, setCurrentVideoId] = useState(null);
-    const [videoDurations, setVideoDurations] = useState({}); 
+    const [videoDurations, setVideoDurations] = useState({});
     const [currentMeditationIndex, setCurrentMeditationIndex] = useState(0);
     const [player, setPlayer] = useState(null);
+    const meditationsRef = useRef();
     let headingName;
 
-    if(name === "sleep")
+    if (name === "sleep")
         headingName = "Sleep";
 
     useImperativeHandle(ref, () => ({
@@ -32,7 +34,7 @@ const Meditations = forwardRef(({ name }, ref) => {
                 const videoId = getYouTubeVideoId(meditationLinks[currentMeditationIndex + 1]);
                 setCurrentVideoId(videoId);
                 if (player) {
-                    player.cueVideoById({videoId: videoId, startSeconds: 0});
+                    player.cueVideoById({ videoId: videoId, startSeconds: 0 });
                     player.seekTo(0); // Seek to the beginning of the video
                 }
             }
@@ -43,7 +45,7 @@ const Meditations = forwardRef(({ name }, ref) => {
                 const videoId = getYouTubeVideoId(meditationLinks[currentMeditationIndex - 1]);
                 setCurrentVideoId(videoId);
                 if (player) {
-                    player.cueVideoById({videoId: videoId, startSeconds: 0});
+                    player.cueVideoById({ videoId: videoId, startSeconds: 0 });
                     player.seekTo(0); // Seek to the beginning of the video
                 }
             }
@@ -96,16 +98,16 @@ const Meditations = forwardRef(({ name }, ref) => {
             return '';
         }
     };
-    
+
     const formatDuration = (duration) => {
         const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
         const hours = match[1] ? parseInt(match[1]) : 0;
         const minutes = match[2] ? parseInt(match[2]) : 0;
         const seconds = match[3] ? parseInt(match[3]) : 0;
-    
+
         return `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
     };
-    
+
     const padZero = (number) => {
         return number.toString().padStart(2, '0');
     };
@@ -153,7 +155,7 @@ const Meditations = forwardRef(({ name }, ref) => {
         if (player) {
             player.destroy();
         }
-    
+
         const newPlayer = new window.YT.Player('player', {
             height: '0',
             width: '0',
@@ -171,44 +173,84 @@ const Meditations = forwardRef(({ name }, ref) => {
                 }
             }
         });
-    
+
         setPlayer(newPlayer);
     };
-    
+
     const onReady = (event) => {
         setPlayer(event.target);
     };
 
+    const nextMeditation = () => {
+        console.log("next meditation");
+        if (meditationsRef.current) {
+            meditationsRef.current.nextMeditation();
+        }
+    };
+
+    const previousMeditation = () => {
+        if (meditationsRef.current) {
+            meditationsRef.current.previousMeditation();
+        }
+    };
+
+    const togglePause = () => {
+        if (meditationsRef.current) {
+            meditationsRef.current.togglePause();
+        }
+    };
+
     return (
-        <div className="meditations-container">
+        <div>
             <div className='heading'>
                 <h1>Guided Meditations</h1>
             </div>
-            <div className='meditation-list'>
-                <h2>{headingName} Meditations</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Duration</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {meditationTitles.map((title, index) => (
-                            <tr key={index}>
-                                <td>{title}</td>
-                                <td>{videoDurations[getYouTubeVideoId(meditationLinks[index])]}</td>
-                                <td>
-                                    <button onClick={() => handlePlayClick(index)}>Play</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                <CoverCard currentVideoId={currentVideoId} player={player} />
+            <div className="meditations-container">
+                <div className='container-fluid'>
+                    <div className='row'>
+                        <div className='col-7'>
+                            <div className='meditation-list'>
+                                <h2>{headingName} Meditations</h2>  
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Duration</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {meditationTitles.map((title, index) => (
+                                            <tr key={index}>
+                                                <td>{title}</td>
+                                                <td>{videoDurations[getYouTubeVideoId(meditationLinks[index])]}</td>
+                                                <td>
+                                                    <button onClick={() => handlePlayClick(index)}>Play</button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div> {/*end of meditation-list */}
+                        </div> {/*end of col-7 (left half) */}
+
+                        <div className='col-5'>
+                            {/*CoverCard*/}
+                            <div className=' mb-5 d-flex justify-content-center align-items-center h-80'>
+                                <div className='mb-5' style={{ padding: '12px', backgroundColor: 'white', borderRadius: "10px"}}>
+                                    <CoverCard currentVideoId={currentVideoId} player={player} />
+                                </div>
+                            </div>
+
+                            {/*controller*/}
+                            <div className='mt -5 d-flex justify-content-center' style={{ padding: '20px' }}>
+                                <div className="controller" style={{ padding: '15px', backgroundColor: 'white', borderRadius: "10px"}}> 
+                                    <Controller onNext={nextMeditation} onPrevious={previousMeditation} onPauseToggle={togglePause} />
+                                </div>
+                            </div>
+                        </div> {/*end of col-5 (right half) */}
+                    </div>
+                </div>
             </div>
         </div>
     );
