@@ -71,20 +71,25 @@ const Profile = () => {
     <div className="profile-page-container">
       <NavBar />
       <div className="profile-page">
+        <div className='container'>
+          <div className='row mt-5'>
+        <div className='col-3'></div>
+       <div className='col-6' >
         {user ? (
-          <>
-            <div className="profile-picture-container">
+          <div className='text-center'>
+            <div className="profile-picture-container mb-3 mt-5 " >
+
               <img
                 src={profilePicture || '/default-profile-picture.jpg'}
                 alt="Profile"
-                className="profile-picture"
+                className="profile-picture "
               />
-              <button
+              {/* <button
                 className="edit-picture-button"
                 onClick={() => setShowPictureOptions(!showPictureOptions)}
               >
                 Edit
-              </button>
+              </button> */}
               {showPictureOptions && (
                 <div className="picture-options">
                   {pictures.map((picture) => (
@@ -98,13 +103,28 @@ const Profile = () => {
               </div>
               )}
             </div>
-            <h2>{user.name}</h2>
-            <p>{user.email}</p>
-            <button onClick={handleDeleteAccount}>Delete Account</button>
-          </>
+         <div className="profile-picture-container ">
+            <button
+                className="edit-picture-button mb-3"
+                onClick={() => setShowPictureOptions(!showPictureOptions)}
+              >
+                Edit
+              </button>
+              </div>
+            <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', padding: '20px', borderRadius: "20px", overflowY: "auto"}}>
+            <h2 > Name : {user.name}</h2>
+            <p>Email : {user.email}</p>
+            <p>Want to get rid of us? We'll miss you!</p>
+            <button onClick={handleDeleteAccount} className='btn btn-danger'>Delete Account</button>
+            </div>
+          </div>
         ) : (
           <p>Loading...</p>
         )}
+        </div>
+        <div className='col-3'></div>
+        </div>
+        </div>
       </div>
     </div>
   );
