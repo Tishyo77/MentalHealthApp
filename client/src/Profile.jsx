@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Profile.css';
 import NavBar from './NavBar';
 import avatarPaths from './Avatars';
+import editIcon from './Icons/Edit.png';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -90,16 +91,16 @@ const Profile = () => {
                       alt="Profile"
                       className="profile-picture"
                     />
-                    <div className="profile-picture-container">
-                      <button
-                        className="edit-picture-button mb-3"
+                    <div className="edit-picture-button-container">
+                      <img
+                        src={editIcon}
+                        alt="Edit"
+                        className="edit-picture-button"
                         onClick={togglePictureOptions}
-                      >
-                        Edit
-                      </button>
+                      />
                     </div>
                   </div>
-                  <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', paddingLeft: '5%', paddingRight: '5%', paddingTop: "2%", borderRadius: "20px", overflowY: "auto", }}>
+                  <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', paddingLeft: '3%', paddingRight: '3%', paddingTop: "3%", paddingBottom: "3%", borderRadius: "20px", overflowY: "auto", }}>
                     <div className="profile-info">
                       <div className="profile-info-label" style={{ fontWeight: "bold", fontSize: "25px" }}>Name:</div>
                       <div className="profile-info-content" style={{ fontWeight: "bold", fontSize: "25px" }}>{user.name}</div>
@@ -110,13 +111,10 @@ const Profile = () => {
                     </div>
 
                     <div className="profile-delete-container mb-3">
-  <button onClick={handleDeleteAccount} className='btn btn-danger me-3'>Delete Account</button>
-  <p className='mt-2'>Want to get rid of us? We'll miss you!</p>
-</div>
-
-
+                      <p className='mt-2'>Want to get rid of us? We'll miss you!</p>
+                      <button onClick={handleDeleteAccount} className='btn btn-danger me-3 delete-buton'>Delete Account</button>
+                    </div>
                   </div>
-
                 </div>
               ) : (
                 <p>Loading...</p>

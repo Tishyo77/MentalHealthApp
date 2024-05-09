@@ -13,10 +13,12 @@
 
 .meditation-list {
     margin-top: 2%;
-    background-color: rgb(255, 255, 255);
+    background-color: #394F8A;
     border-radius: 10px;
     padding: 20px;
     max-height: 500px; 
+    color: white;
+    font-family: "Quicksand", sans-serif;
 }
 
 .meditation-list table {
@@ -26,6 +28,7 @@
     max-height: 400px; 
     display: block; 
     overflow-y: auto; 
+    color: black;
   }
 
   .meditation-list th, td {
@@ -34,12 +37,12 @@
 }
 
 .meditation-list th {
-    background-color: bisque;
+    background-color: #E1FCFD;
     border-bottom: solid 1px black;
 }
 
 .meditation-list tbody tr {
-    background-color: bisque;
+    background-color: #E1FCFD;
     border-radius: 10px;
 }
 
@@ -53,5 +56,14 @@
     height: 20px; /* Adjust this value to change the height */
 }
 
+.meditation-page-container .back-button
+{
+    background-color: #394F8A;
+    border: none;
+    padding: 5px;
+    color: white;
+    border-radius: 10px;
+    margin: 10px;
+}
 
 

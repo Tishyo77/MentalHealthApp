@@ -26,7 +26,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
     /* Gradient Background */
-    background: linear-gradient(to bottom right, #ff880097, #ffffff52);
+    background-color: #E1FCFD;
+    /*background: linear-gradient(to bottom right, #E1FCFD, #394f8a87);*/
 }
 
 
