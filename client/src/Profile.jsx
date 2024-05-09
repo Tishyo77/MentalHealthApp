@@ -80,8 +80,8 @@ const Profile = () => {
       <div className={`profile-page ${isBlurred ? 'blurred' : ''}`}>
         <div className='container'>
           <div className='row mt-5'>
-            <div className='col-3'></div>
-            <div className='col-6'>
+            <div className='col-2'></div>
+            <div className='col-8'>
               {user ? (
                 <div className='text-center'>
                   <div className="profile-picture-container mb-3 mt-5">
@@ -99,18 +99,30 @@ const Profile = () => {
                       </button>
                     </div>
                   </div>
-                  <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', padding: '20px', borderRadius: "20px", overflowY: "auto" }}>
-                    <h2>Name : {user.name}</h2>
-                    <p>Email : {user.email}</p>
-                    <p>Want to get rid of us? We'll miss you!</p>
-                    <button onClick={handleDeleteAccount} className='btn btn-danger'>Delete Account</button>
+                  <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', paddingLeft: '5%', paddingRight: '5%', paddingTop: "2%", borderRadius: "20px", overflowY: "auto", }}>
+                    <div className="profile-info">
+                      <div className="profile-info-label" style={{ fontWeight: "bold", fontSize: "25px" }}>Name:</div>
+                      <div className="profile-info-content" style={{ fontWeight: "bold", fontSize: "25px" }}>{user.name}</div>
+                    </div>
+                    <div className="profile-info mb-4">
+                      <div className="profile-info-label" style={{ fontWeight: "bold", fontSize: "25px" }}>Email:</div>
+                      <div className="profile-info-content" style={{ fontWeight: "bold", fontSize: "25px" }}>{user.email}</div>
+                    </div>
+
+                    <div className="profile-delete-container mb-3">
+  <button onClick={handleDeleteAccount} className='btn btn-danger me-3'>Delete Account</button>
+  <p className='mt-2'>Want to get rid of us? We'll miss you!</p>
+</div>
+
+
                   </div>
+
                 </div>
               ) : (
                 <p>Loading...</p>
               )}
             </div>
-            <div className='col-3'></div>
+            <div className='col-2'></div>
           </div>
         </div>
       </div>
