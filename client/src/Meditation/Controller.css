@@ -1,0 +1,19 @@
+/* Controller.css */
+.controller-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controller-container button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0; /* Remove default padding */
+    margin: 0 30px; /* Add some spacing between buttons */
+}
+
+.controller-container button img {
+    width: 40px; /* Set the width of the icon */
+    height: 40px; /* Set the height of the icon */
+}

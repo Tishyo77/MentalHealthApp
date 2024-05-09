@@ -1,5 +1,8 @@
 import React from 'react';
 import './Controller.css';
+import pauseIcon from '../Icons/Pause.png';
+import nextIcon from '../Icons/Next.png';
+import previousIcon from '../Icons/Previous.png';
 
 const Controller = ({ onNext, onPrevious, onPauseToggle }) => {
     const handlePauseToggle = () => {
@@ -16,9 +19,15 @@ const Controller = ({ onNext, onPrevious, onPauseToggle }) => {
 
     return (
         <div className="controller-container">
-            <button onClick={handlePrevious}>Previous</button>
-            <button onClick={handlePauseToggle}>Pause/Play</button>
-            <button onClick={handleNext}>Next</button>
+            <button onClick={handlePrevious}>
+                <img src={previousIcon} alt="Previous" />
+            </button>
+            <button onClick={handlePauseToggle}>
+                <img src={pauseIcon} alt="Pause/Play" />
+            </button>
+            <button onClick={handleNext}>
+                <img src={nextIcon} alt="Next" />
+            </button>
         </div>
     );
 };

@@ -269,14 +269,14 @@ const Meditations = forwardRef(({ name }, ref) => {
                         <div className='col-5'>
                             {/*CoverCard*/}
                             <div className=' mb-5 d-flex justify-content-center align-items-center h-80'>
-                                <div style={{ padding: '12px', backgroundColor: 'rgb(255, 155, 32)', borderRadius: "10px", marginTop: '2.5%'}}>
+                                <div style={{ padding: '12px', backgroundColor: 'white', borderRadius: "10px", marginTop: '2.5%'}}>
                                     <CoverCard currentVideoId={currentVideoId} player={playerRef} />
                                 </div>
                             </div>
 
                             {/*controller*/}
                             <div className='mt -5 d-flex justify-content-center'>
-                                <div className="controller" style={{ paddingTop: '7%', paddingBottom: '7%',backgroundColor: 'rgb(255, 155, 32)', borderRadius: "10px", paddingLeft: '22%', paddingRight: '22%'}}> 
+                                <div className="controller" style={{ paddingTop: '7%', paddingBottom: '7%',backgroundColor: 'white', borderRadius: "10px", paddingLeft: '7%', paddingRight: '7%'}}> 
                                     <Controller onNext={nextMeditation} onPrevious={previousMeditation} onPauseToggle={togglePause} />
                                 </div>
                             </div>

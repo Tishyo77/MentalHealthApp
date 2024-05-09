@@ -1,0 +1,20 @@
+/* Details.css */
+.details-container {
+    display: flex;
+    background: rgba(255, 255, 255, 0.8); 
+    justify-content: center; /* horizontally center */
+    align-items: center; /* vertically center */
+    height: 100%; /* adjust height as needed */
+    border-radius: 10px;
+  }
+
+  .logo
+  {
+    text-align: center;
+  }
+  
+  .logo img {
+    max-width: 80%; /* ensure image doesn't exceed container width */
+    height: auto; /* maintain aspect ratio */
+  }
+  

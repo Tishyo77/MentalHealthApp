@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import NavBar from '../NavBar';
 import DayQuote from './DayQuote';
 import Reading from './Reading';
+import Details from "./Details";
 import FeelingPopup from './FeelingPopup';
 import Graph from './Graph';
 import "./Dashboard.css";
@@ -99,7 +100,7 @@ const Dashboard = () => {
           </div>
           <div className="bottom-right-half">
             <div className="reading-now">
-              
+              <Details />
             </div>
           </div>
         </div>
