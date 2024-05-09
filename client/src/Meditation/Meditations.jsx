@@ -96,6 +96,7 @@ const Meditations = forwardRef(({ name }, ref) => {
     const handlePlayClick = async (index) => {
         const videoId = getYouTubeVideoId(meditationLinks[index]);
         setCurrentVideoId(videoId);
+        setCurrentMeditationIndex(index);
         if (playerRef.current) {
             playerRef.current.cueVideoById({ videoId: videoId, startSeconds: 0 });
             playerRef.current.playVideo();

@@ -98,7 +98,9 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="bottom-right-half">
-            <div className="reading-now"></div>
+            <div className="reading-now">
+              
+            </div>
           </div>
         </div>
       </div>
