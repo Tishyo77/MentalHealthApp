@@ -1,4 +1,9 @@
 /* LandingPage.css */
+body
+{
+  background-color: rgb(255, 155, 32);
+}
+
 .landing-page {
   position: relative;
   background-image: url('./src/Images/LandingBG.png');

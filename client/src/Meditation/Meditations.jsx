@@ -16,6 +16,7 @@ const Meditations = forwardRef(({ name }, ref) => {
     const playerRef = useRef(null); // New ref to store the player instance
     const meditationsRef = useRef();
     let headingName;
+    const userEmail = localStorage.getItem('email');
 
     if (name === "sleep")
         headingName = "Sleep";
@@ -92,17 +93,34 @@ const Meditations = forwardRef(({ name }, ref) => {
         return number.toString().padStart(2, '0');
     };
 
-    const handlePlayClick = (index) => {
+    const handlePlayClick = async (index) => {
         const videoId = getYouTubeVideoId(meditationLinks[index]);
         setCurrentVideoId(videoId);
         if (playerRef.current) {
-          playerRef.current.cueVideoById({ videoId: videoId, startSeconds: 0 });
-          playerRef.current.playVideo();
+            playerRef.current.cueVideoById({ videoId: videoId, startSeconds: 0 });
+            playerRef.current.playVideo();
         } else {
-          // Load the player if it's not available yet
-          loadPlayer(videoId);
+            // Load the player if it's not available yet
+            loadPlayer(videoId);
         }
-      };
+
+        // Update the last heard meditation details
+        const name = meditationTitles[index];
+        const duration = String(videoDurations[videoId]);
+        const link = meditationLinks[index];
+
+        try {
+            console.log(userEmail);
+            await axios.put('http://localhost:4000/detailsRoute/update-last-meditation', {
+                email: userEmail,
+                name,
+                duration,
+                link,
+            });
+        } catch (err) {
+            console.error('Error updating last heard meditation:', err);
+        }
+    };
 
     const getYouTubeVideoId = (url) => {
         const match = url.match(/[?&]v=([^&]+)/);
@@ -164,31 +182,55 @@ const Meditations = forwardRef(({ name }, ref) => {
         }
     };
 
-    const nextMeditation = () => {
+    const nextMeditation = async () => {
         if (currentMeditationIndex < meditationLinks.length - 1) {
-            const newIndex = currentMeditationIndex + 1; // Update the index first
-            setCurrentMeditationIndex(newIndex);
-            const videoId = getYouTubeVideoId(meditationLinks[newIndex]); // Use the updated index
-            setCurrentVideoId(videoId);
-            if (playerRef.current) {
-                playerRef.current.cueVideoById({ videoId: videoId, startSeconds: 0 });
-                playerRef.current.seekTo(0); // Seek to the beginning of the video
+          const newIndex = currentMeditationIndex + 1;
+          setCurrentMeditationIndex(newIndex);
+          const videoId = getYouTubeVideoId(meditationLinks[newIndex]);
+          setCurrentVideoId(videoId);
+      
+            // Update the last heard meditation details
+            const name = meditationTitles[newIndex];
+            const duration = String(videoDurations[videoId]);
+            const link = meditationLinks[newIndex];
+      
+            try {
+              await axios.put('http://localhost:4000/detailsRoute/update-last-meditation', {
+                email: userEmail,
+                name,
+                duration,
+                link,
+              });
+            } catch (err) {
+              console.error('Error updating last heard meditation:', err);
             }
-        }
-    };
-    
-    const previousMeditation = () => {
+          }
+      };
+      
+      const previousMeditation = async () => {
         if (currentMeditationIndex > 0) {
-            const newIndex = currentMeditationIndex - 1; // Update the index first
-            setCurrentMeditationIndex(newIndex);
-            const videoId = getYouTubeVideoId(meditationLinks[newIndex]); // Use the updated index
-            setCurrentVideoId(videoId);
-            if (playerRef.current) {
-                playerRef.current.cueVideoById({ videoId: videoId, startSeconds: 0 });
-                playerRef.current.seekTo(0); // Seek to the beginning of the video
+          const newIndex = currentMeditationIndex - 1;
+          setCurrentMeditationIndex(newIndex);
+          const videoId = getYouTubeVideoId(meditationLinks[newIndex]);
+          setCurrentVideoId(videoId);
+      
+            // Update the last heard meditation details
+            const name = meditationTitles[newIndex];
+            const duration = String(videoDurations[videoId]);
+            const link = meditationLinks[newIndex];
+      
+            try {
+              await axios.put('http://localhost:4000/detailsRoute/update-last-meditation', {
+                email: userEmail,
+                name,
+                duration,
+                link,
+              });
+            } catch (err) {
+              console.error('Error updating last heard meditation:', err);
             }
-        }
-    };
+          }
+      };
     
 
     return (

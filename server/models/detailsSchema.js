@@ -10,6 +10,11 @@ const detailsSchema = new mongoose.Schema({
         author: { type: String },
         linkImage: { type: String },
         linkBook: { type: String }
+    },
+    lastheardMeditation: {
+        name: { type: String },
+        duration: { type: String },
+        link: { type: String }
     }
 }, {
     collection: "details"

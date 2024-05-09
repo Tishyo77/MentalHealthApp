@@ -207,5 +207,29 @@ detailsRoute.get("/get-last-read-book", async (req, res) => {
     }
 });
 
+detailsRoute.put('/update-last-meditation', async (req, res) => {
+    try {
+      const { email, name, duration, link } = req.body;
+      const updatedDetails = await detailsSchema.findOneAndUpdate(
+        { email },
+        {
+          $set: {
+            lastheardMeditation: {
+              name: name,
+              duration: duration,
+              link: link,
+            },
+          },
+        },
+        { new: true }
+      );
+  
+      res.json(updatedDetails);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+
 
 module.exports = detailsRoute;

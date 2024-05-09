@@ -31,4 +31,6 @@
   {
     width: 200px;
     background-color: rgb(255, 161, 47);
+    border: none;
+    border-radius: 10px;
   }
