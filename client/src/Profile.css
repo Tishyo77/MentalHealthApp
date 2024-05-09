@@ -18,7 +18,7 @@
   
   .profile-picture-container img
   {
-    width: 30%;
+    width: 20%;
   }
   
   .blurred {
@@ -48,3 +48,29 @@
     border-radius: 50%;
     object-fit: cover;
   }
+
+  .profile-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-info-label {
+  flex: 0 0 auto;
+  width: 100px; /* Adjust width as needed */
+  text-align: left;
+}
+
+.profile-info-content {
+  flex: 1 1 auto;
+  text-align: right;
+}
+.profile-delete-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
