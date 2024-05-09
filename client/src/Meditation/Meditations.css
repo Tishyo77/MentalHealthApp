@@ -14,43 +14,46 @@
 
 
 .meditation-list {
-    background-color: #f9f9f9;
+    margin-top: 2%;
+    background-color: rgb(255, 155, 32);
     border-radius: 10px;
     padding: 20px;
-    overflow-y: auto; 
     max-height: 500px; 
 }
 
-table {
+.meditation-list table {
+    margin-top: 2.5%;
     width: 100%;
     border-collapse: collapse;
+    max-height: 400px; 
+    display: block; 
+    overflow-y: auto; 
+  }
 
-}
-
-th, td {
+  .meditation-list th, td {
     padding: 10px;
     text-align: left;
 }
 
-th {
-    background-color: #ccc;
+.meditation-list th {
+    background-color: bisque;
+    border-bottom: solid 1px black;
 }
 
-tbody tr {
-    background-color: #ff0000;
+.meditation-list tbody tr {
+    background-color: bisque;
     border-radius: 10px;
 }
 
-button {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: #fff;
+.play {
+    background-color: #007bff00;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+.play img {
+    width: 20px; /* Adjust this value to change the width */
+    height: 20px; /* Adjust this value to change the height */
 }
+
+
 

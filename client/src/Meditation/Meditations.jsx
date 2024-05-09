@@ -4,6 +4,7 @@ import YouTube from 'react-youtube';
 import CoverCard from './CoverCard';
 import Controller from './Controller';
 import './Meditations.css';
+import playIcon from '../Icons/Play.png';
 
 const Meditations = forwardRef(({ name }, ref) => {
     const [meditationLinks, setMeditationLinks] = useState([]);
@@ -12,6 +13,7 @@ const Meditations = forwardRef(({ name }, ref) => {
     const [videoDurations, setVideoDurations] = useState({});
     const [currentMeditationIndex, setCurrentMeditationIndex] = useState(0);
     const [player, setPlayer] = useState(null);
+    const playerRef = useRef(null); // New ref to store the player instance
     const meditationsRef = useRef();
     let headingName;
 
@@ -20,35 +22,13 @@ const Meditations = forwardRef(({ name }, ref) => {
 
     useImperativeHandle(ref, () => ({
         togglePause() {
-            if (player) {
-                if (player.getPlayerState() === 1) { // Playing
-                    player.pauseVideo();
-                } else if (player.getPlayerState() === 2) { // Paused
-                    player.playVideo();
-                }
-            }
+            togglePause();
         },
         nextMeditation() {
-            if (currentMeditationIndex < meditationLinks.length - 1) {
-                setCurrentMeditationIndex(currentMeditationIndex + 1);
-                const videoId = getYouTubeVideoId(meditationLinks[currentMeditationIndex + 1]);
-                setCurrentVideoId(videoId);
-                if (player) {
-                    player.cueVideoById({ videoId: videoId, startSeconds: 0 });
-                    player.seekTo(0); // Seek to the beginning of the video
-                }
-            }
+            nextMeditation();
         },
         previousMeditation() {
-            if (currentMeditationIndex > 0) {
-                setCurrentMeditationIndex(currentMeditationIndex - 1);
-                const videoId = getYouTubeVideoId(meditationLinks[currentMeditationIndex - 1]);
-                setCurrentVideoId(videoId);
-                if (player) {
-                    player.cueVideoById({ videoId: videoId, startSeconds: 0 });
-                    player.seekTo(0); // Seek to the beginning of the video
-                }
-            }
+            previousMeditation();
         }
     }));
 
@@ -90,7 +70,7 @@ const Meditations = forwardRef(({ name }, ref) => {
 
     const fetchVideoDuration = async (videoId) => {
         try {
-            const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=g`);
+            const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=contentDetails&key=AIzaSyAHHDjp5LO4facG2HRW2GBgxVN874a3eus`);
             const duration = response.data.items[0].contentDetails.duration;
             return formatDuration(duration);
         } catch (error) {
@@ -115,11 +95,14 @@ const Meditations = forwardRef(({ name }, ref) => {
     const handlePlayClick = (index) => {
         const videoId = getYouTubeVideoId(meditationLinks[index]);
         setCurrentVideoId(videoId);
-        if (player) {
-            player.cueVideoById(videoId, 0); // Cue the video
-            player.playVideo(); // Start playing the video
+        if (playerRef.current) {
+          playerRef.current.cueVideoById({ videoId: videoId, startSeconds: 0 });
+          playerRef.current.playVideo();
+        } else {
+          // Load the player if it's not available yet
+          loadPlayer(videoId);
         }
-    };
+      };
 
     const getYouTubeVideoId = (url) => {
         const match = url.match(/[?&]v=([^&]+)/);
@@ -128,32 +111,25 @@ const Meditations = forwardRef(({ name }, ref) => {
 
     const loadPlayer = (videoId) => {
         if (window.YT && window.YT.Player) {
-            createPlayer(videoId);
+          createPlayer(videoId);
         } else {
-            const tag = document.createElement('script');
-            tag.src = 'https://www.youtube.com/iframe_api';
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            window.onYouTubeIframeAPIReady = () => {
-                setPlayer(new window.YT.Player('player', {
-                    height: '0',
-                    width: '0',
-                    videoId: videoId,
-                    playerVars: {
-                        controls: 0,
-                        disablekb: 1,
-                        modestbranding: 1,
-                        rel: 0,
-                        showinfo: 0,
-                    }
-                }));
-            };
+          const tag = document.createElement('script');
+          tag.src = 'https://www.youtube.com/iframe_api';
+          const firstScriptTag = document.getElementsByTagName('script')[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+          window.onYouTubeIframeAPIReady = () => {
+            createPlayer(videoId);
+          };
         }
-    };
+        // Call createPlayer directly if the API is already loaded
+        if (window.YT && window.YT.Player && !playerRef.current) {
+          createPlayer(videoId);
+        }
+      };
 
-    const createPlayer = (videoId) => {
-        if (player) {
-            player.destroy();
+      const createPlayer = (videoId) => {
+        if (playerRef.current) {
+            playerRef.current.destroy(); // Destroy the existing player if it exists
         }
 
         const newPlayer = new window.YT.Player('player', {
@@ -170,41 +146,53 @@ const Meditations = forwardRef(({ name }, ref) => {
             events: {
                 onReady: (event) => {
                     event.target.playVideo(); // Start playing the video
-                }
-            }
+                },
+            },
         });
 
         setPlayer(newPlayer);
-    };
-
-    const onReady = (event) => {
-        setPlayer(event.target);
-    };
-
-    const nextMeditation = () => {
-        console.log("next meditation");
-        if (meditationsRef.current) {
-            meditationsRef.current.nextMeditation();
-        }
-    };
-
-    const previousMeditation = () => {
-        if (meditationsRef.current) {
-            meditationsRef.current.previousMeditation();
-        }
+        playerRef.current = newPlayer; // Update playerRef.current with the new player instance
     };
 
     const togglePause = () => {
-        if (meditationsRef.current) {
-            meditationsRef.current.togglePause();
+        if (playerRef.current) {
+            if (playerRef.current.getPlayerState() === 1) { // Playing
+                playerRef.current.pauseVideo();
+            } else if (playerRef.current.getPlayerState() === 2) { // Paused
+                playerRef.current.playVideo();
+            }
         }
     };
 
+    const nextMeditation = () => {
+        if (currentMeditationIndex < meditationLinks.length - 1) {
+            const newIndex = currentMeditationIndex + 1; // Update the index first
+            setCurrentMeditationIndex(newIndex);
+            const videoId = getYouTubeVideoId(meditationLinks[newIndex]); // Use the updated index
+            setCurrentVideoId(videoId);
+            if (playerRef.current) {
+                playerRef.current.cueVideoById({ videoId: videoId, startSeconds: 0 });
+                playerRef.current.seekTo(0); // Seek to the beginning of the video
+            }
+        }
+    };
+    
+    const previousMeditation = () => {
+        if (currentMeditationIndex > 0) {
+            const newIndex = currentMeditationIndex - 1; // Update the index first
+            setCurrentMeditationIndex(newIndex);
+            const videoId = getYouTubeVideoId(meditationLinks[newIndex]); // Use the updated index
+            setCurrentVideoId(videoId);
+            if (playerRef.current) {
+                playerRef.current.cueVideoById({ videoId: videoId, startSeconds: 0 });
+                playerRef.current.seekTo(0); // Seek to the beginning of the video
+            }
+        }
+    };
+    
+
     return (
         <div>
-            <div className='heading'>
-                <h1>Guided Meditations</h1>
-            </div>
             <div className="meditations-container">
                 <div className='container-fluid'>
                     <div className='row'>
@@ -225,7 +213,9 @@ const Meditations = forwardRef(({ name }, ref) => {
                                                 <td>{title}</td>
                                                 <td>{videoDurations[getYouTubeVideoId(meditationLinks[index])]}</td>
                                                 <td>
-                                                    <button onClick={() => handlePlayClick(index)}>Play</button>
+                                                <button className="play" onClick={() => handlePlayClick(index)}>
+                                                    <img src={playIcon} alt="Play" />
+                                                </button>
                                                 </td>
                                             </tr>
                                         ))}
@@ -237,14 +227,14 @@ const Meditations = forwardRef(({ name }, ref) => {
                         <div className='col-5'>
                             {/*CoverCard*/}
                             <div className=' mb-5 d-flex justify-content-center align-items-center h-80'>
-                                <div className='mb-5' style={{ padding: '12px', backgroundColor: 'white', borderRadius: "10px"}}>
-                                    <CoverCard currentVideoId={currentVideoId} player={player} />
+                                <div className='mb-5' style={{ padding: '12px', backgroundColor: 'rgb(255, 155, 32)', borderRadius: "10px", marginTop: '2.5%'}}>
+                                    <CoverCard currentVideoId={currentVideoId} player={playerRef} />
                                 </div>
                             </div>
 
                             {/*controller*/}
-                            <div className='mt -5 d-flex justify-content-center' style={{ padding: '20px' }}>
-                                <div className="controller" style={{ padding: '15px', backgroundColor: 'white', borderRadius: "10px"}}> 
+                            <div className='mt -5 d-flex justify-content-center'>
+                                <div className="controller" style={{ padding: '10%', backgroundColor: 'rgb(255, 155, 32)', borderRadius: "10px", paddingLeft: '26%', paddingRight: '26%'}}> 
                                     <Controller onNext={nextMeditation} onPrevious={previousMeditation} onPauseToggle={togglePause} />
                                 </div>
                             </div>

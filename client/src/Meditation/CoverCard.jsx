@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 
 const CoverCard = ({ currentVideoId, player }) => {
-    const [youTubePlayer, setYouTubePlayer] = useState(null);
-
     useEffect(() => {
         if (currentVideoId) {
             loadPlayer(currentVideoId);
@@ -11,8 +9,10 @@ const CoverCard = ({ currentVideoId, player }) => {
     }, [currentVideoId]);
 
     const loadPlayer = (videoId) => {
+        // Use a unique ID for each player
+        const playerId = 'coverPlayer';
         if (window.YT && window.YT.Player) {
-            createPlayer(videoId);
+            createPlayer(playerId, videoId);
         } else {
             const tag = document.createElement('script');
             tag.src = 'https://www.youtube.com/iframe_api';
@@ -24,8 +24,8 @@ const CoverCard = ({ currentVideoId, player }) => {
         }
     };
 
-    const createPlayer = (videoId) => {
-        const newPlayer = new window.YT.Player('player', {
+    const createPlayer = (playerId, videoId) => {
+        const newPlayer = new window.YT.Player(playerId, {
             height: '300',
             width: '500.11',
             videoId: videoId,
@@ -35,7 +35,7 @@ const CoverCard = ({ currentVideoId, player }) => {
             },
             events: {
                 onReady: (event) => {
-                    setYouTubePlayer(event.target);
+                    // Use the player reference passed from the parent
                     player.current = event.target;
                 },
             },
@@ -44,7 +44,7 @@ const CoverCard = ({ currentVideoId, player }) => {
 
     return (
         <div className='youtube'>
-            <div id="player">
+            <div id="coverPlayer"> {/* Use a unique ID for each player */}
                     <YouTube
                         videoId={currentVideoId}
                         opts={{

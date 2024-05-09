@@ -22,31 +22,37 @@ const MeditationPage = () => {
         setShowBackButton(false);
     };
 
-    // const nextMeditation = () => {
-    //     if (meditationsRef.current) {
-    //         meditationsRef.current.nextMeditation();
-    //     }
-    // };
+    const nextMeditation = () => {
+        if (meditationsRef.current) {
+            meditationsRef.current.nextMeditation();
+        }
+    };
 
-    // const previousMeditation = () => {
-    //     if (meditationsRef.current) {
-    //         meditationsRef.current.previousMeditation();
-    //     }
-    // };
+    const previousMeditation = () => {
+        if (meditationsRef.current) {
+            meditationsRef.current.previousMeditation();
+        }
+    };
 
-    // const togglePause = () => {
-    //     if (meditationsRef.current) {
-    //         meditationsRef.current.togglePause();
-    //     }
-    // };
+    const togglePause = () => {
+        if (meditationsRef.current) {
+            meditationsRef.current.togglePause();
+        }
+    };
 
     return (
         <div className="meditation-page-container">
             <NavBar />
             <div className="meditation-page" >
-                {showBackButton && (
-                    <button onClick={handleBackButtonClick}>Back</button>
-                )}
+                <div className="nvbr">
+                    <div>
+                        <h1>Unwind your Mind </h1>
+                        <h2>Experience the Magic of Guided Meditations</h2>
+                        {showBackButton && (
+                            <button className="back-button" onClick={handleBackButtonClick}>Back</button>
+                        )}
+                    </div>
+                </div>
                 {/* <div className='playlist-and-items'> */}
                     {currentPlaylist ? (
                         <Meditations ref={meditationsRef} name={currentPlaylist} />
@@ -54,9 +60,6 @@ const MeditationPage = () => {
                         <Playlists onPlaylistClick={handlePlaylistClick} />
                     )}
                 {/* </div> */}
-                {/* <div className="controller">
-                    <Controller onNext={nextMeditation} onPrevious={previousMeditation} onPauseToggle={togglePause} />
-                </div> */}
             </div>
         </div>
     );

@@ -1,19 +1,21 @@
-.playlist-container .heading {
-    margin-bottom: 5%;
+.playlist-container
+{
+    margin: 5%;
 }
 
 .playlist-container .subheading {
-    margin-bottom: 2%;
+    margin-bottom: 1%;
+    margin-top: 0%;
 }
 
 .playlist-container .playlist-cards {
     display: flex;
-    justify-content: space-between; /* To evenly space the cards */
+    justify-content: space-between; 
 } 
 
  .playlist-container .playlist-card {
     cursor: pointer;
-    width: 15%;
+    width: 20%;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -33,4 +35,9 @@
 .playlist-container .playlist-card h3 {
     margin-top: 10px;
     text-align: center;
+}
+
+.playlist-container .playlist-card
+{
+    margin-bottom: 5%;
 }
