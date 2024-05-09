@@ -18,8 +18,7 @@ const Meditations = forwardRef(({ name }, ref) => {
     let headingName;
     const userEmail = localStorage.getItem('email');
 
-    if (name === "sleep")
-        headingName = "Sleep";
+        headingName = name;
 
     useImperativeHandle(ref, () => ({
         togglePause() {

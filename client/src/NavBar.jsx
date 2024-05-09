@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './NavBar.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import therapistIcon from './Icons/Therapist.png';
+import meditateIcon from './Icons/Meditate.png';
+import libraryIcon from './Icons/Library.png';
+import diaryIcon from './Icons/Diary.png';
+import dashIcon from './Icons/Dashboard.png';
 
 const NavBar = () => {
   const [image, setImage] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdLAY3C19kL0nV2bI_plU3_YFCtra0dpsYkg&usqp=CAU");
@@ -38,16 +43,29 @@ const NavBar = () => {
       </div>
       <div className="icon-section">
         <Link to="/" className="sidebar-icon">
-          <i className="fas fa-chart-line"></i> {/* Settings icon */}
-        </Link>
-        <Link to="/library" className="sidebar-icon">
-          <i className="fas fa-book"></i> {/* Read icon */}
-        </Link>
-        <Link to="/meditation" className="sidebar-icon">
-          <i className="fas fa-volume-up"></i> {/* Listen icon */}
+          <div className='hover-box'>
+          <img src={dashIcon} className="icon" alt="Dashboard" />
+          </div>
         </Link>
         <Link to="/therapist" className="sidebar-icon">
-          <i className="fas fa-hand-holding-heart"></i> {/* Get Help icon */}
+        <div className='hover-box'>
+          <img src={therapistIcon} className="icon" alt="Therapist" />
+        </div>
+        </Link>
+        <Link to="/library" className="sidebar-icon">
+        <div className='hover-box'>
+          <img src={libraryIcon} className="icon" alt="Library" />
+        </div>
+        </Link>
+        <Link to="/meditation" className="sidebar-icon">
+        <div className='hover-box'>
+          <img src={meditateIcon} className="icon" alt="Meditate" />
+        </div>
+        </Link>
+        <Link to="/diary" className="sidebar-icon">
+        <div className='hover-box'>
+          <img src={diaryIcon} className="icon" alt="Diary" />
+        </div>
         </Link>
       </div>
       <div className="mt-auto">

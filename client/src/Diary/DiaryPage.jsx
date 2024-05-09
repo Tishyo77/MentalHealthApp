@@ -110,8 +110,8 @@ const DiaryPage = () => {
                             onChange={(e) => setCurrentEntry(e.target.value)}
                             placeholder="Write your entry..."
                         />
-                        </div>
                         <button className='buton-save' onClick={handleSaveEntry}>Save Entry</button>
+                        </div>
                     </div>
                 )}
                 <div className="entries">

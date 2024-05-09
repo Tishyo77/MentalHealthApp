@@ -1,10 +1,15 @@
 .book-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Add this line to center the book image */
-    margin: 10px; /* Add margin around each book card */
-    margin-bottom: 15%;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the book image */
+  margin: 10px; /* Add margin around each book card */
+  margin-bottom: 15%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  background-color: rgba(240, 248, 255, 0.44); 
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.255); /* Add a subtle shadow */
+}
   
   .book-card img {
     width: 200px;
@@ -34,3 +39,8 @@
     border: none;
     border-radius: 10px;
   }
+
+  .book-card .buton:hover {
+    background-color: rgb(143, 94, 35); /* Green */
+    color: white;
+}

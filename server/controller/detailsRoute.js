@@ -136,9 +136,6 @@ detailsRoute.patch("/update-avatar/:email", async (req, res) => {
         const { email } = req.params;
         const { avatar } = req.body;
 
-        console.log('Received request to update avatar for email:', email);
-        console.log('New avatar value:', avatar);
-
         const user = await detailsSchema.findOne({ email });
         if (!user) {
             console.log('User not found for email:', email);
@@ -147,7 +144,6 @@ detailsRoute.patch("/update-avatar/:email", async (req, res) => {
 
         user.avatar = avatar;
         const savedUser = await user.save();
-        console.log('User updated successfully:', savedUser);
 
         res.status(200).json({ message: "Avatar updated successfully" });
     } catch (error) {

@@ -59,7 +59,8 @@
   .library-page-container .books-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin: 2%;
+    column-gap: 75px;
+    row-gap: 50px;
+    margin: 7.5%;
     justify-content: center;
   }

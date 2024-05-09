@@ -13,8 +13,8 @@
 }
 
 .profile-img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50px;
   margin-top: 0px;
 }
@@ -29,13 +29,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
- margin-top: 180px;
+  justify-content: center; /* Vertically center align items */
+  margin-top: auto; /* Push to the bottom */
 }
 
-.sidebar-icon {
-  font-size: 24px;
-  margin-bottom: 45px;
+.sidebar-icon img {
+  width: 35px; /* Adjusted width for smaller icons */
+  height: 35px; /* Adjusted height for smaller icons */
+  margin-bottom: 0; /* Adjusted margin */
 }
 
 .sidebar-icon:hover {
@@ -45,77 +46,6 @@
 .sidebar-icon.discord {
   cursor: pointer; /* Change cursor to pointer on hover */
 }
-
-
-
-@media screen and (max-width: 600px) {
-  .sidebar {
-    width: 100%;
-    padding: 15px;
-  }
-
-  .icon-section {
-    margin-bottom: 10px;
-  }
-
-  .sidebar-icon {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-  background-color: transparent;
-  color: white;
-  font-size: 24px;
-  border: none;
-  cursor: pointer;
-}
-
-.dropbtn:hover{
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-}
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #3a3b45;
-  min-width: 160px;
-  z-index: 1;
-  animation: slideIn 0.3s forwards;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-.dropdown-content a {
-  color: white;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  
-}
-
-.dropdown-content a:hover {
-  background-color: #c41e39;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
 
 .logout-icon {
   font-size: 24px;
@@ -130,6 +60,20 @@
 
 
 .logout-icon:hover {
-  color: rgb(255, 175, 175);
+  color: rgb(0, 0, 0);
   cursor: pointer;
+}
+
+.hover-box {
+  display: inline-block;
+  padding: 10px; /* Adjust padding as needed */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow effect */
+  transition: box-shadow 0.3s ease; /* Smooth transition */
+  margin-bottom: 40px;
+}
+
+/* Apply the hover effect when hovering over the button */
+.sidebar-icon:hover .hover-box {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Change the box shadow on hover */
 }
